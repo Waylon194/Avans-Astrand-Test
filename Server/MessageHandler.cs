@@ -28,6 +28,7 @@ namespace Server
         private void OnData(JObject obj, TcpClient client)
         {
             fileIO.TryWrite(obj);
+            Console.WriteLine("MessageHandler.OnData: logged the data");
         }
 
         //Send data when requested
@@ -40,12 +41,15 @@ namespace Server
             };
 
             clientConnection.Write(client, JObject.FromObject(data));
+
+            Console.WriteLine("MessageHandler.OnDataRequest: sent data to the client");
         }
         
         //Execute the given function from the callbacks
         private void Invoke(string function, JObject data, TcpClient client)
         {
-            callbacks[function.Trim().ToLower()].Invoke(data, client);
+            Console.WriteLine("MessageHandler.Invoke: " + function.Trim());
+            callbacks[function.Trim()].Invoke(data, client);
         }
 
         //Parse and handle a given message

@@ -14,7 +14,7 @@ namespace Server
     {
         private IPAddress ipAdress;
         private int port;
-        private bool serverRunning;
+        private bool serverRunning = true;
 
         public Server(string ipAdress, int port)
         {

@@ -1,12 +1,6 @@
 ﻿#region Imports
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 #endregion
 
@@ -14,13 +8,14 @@ namespace Client
 {
     public partial class StartUp : Form
     {
-
-        Timer timer1 = new Timer();
+        System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
         private int _ticks;
 
         public StartUp()
         {
             InitializeComponent();
+            Thread controllerThread = new Thread(Controller.CreateBike);
+            controllerThread.Start();
             timer1.Start();
         }
 
