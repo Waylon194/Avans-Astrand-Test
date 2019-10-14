@@ -13,11 +13,16 @@ using System.Windows.Forms;
 
 namespace Dokter
 {
-    public partial class Form1 : Form
+    public partial class HomeScreen : Form
     {
-        public Form1()
+        private Controller controller;
+
+        public HomeScreen()
         {
             InitializeComponent();
+            controller = new Controller(this);
+            controller.Connect();
+            controller.DataRequest();
         }
     }
 }
