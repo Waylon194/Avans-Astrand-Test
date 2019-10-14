@@ -47,7 +47,7 @@ namespace Server
             bool running = true;
             NetworkStream stream = client.GetStream();
             ClientConnection connection = new ClientConnection();
-            MessageHandler messageHandler = new MessageHandler();
+            MessageHandler messageHandler = new MessageHandler(connection);
 
             while (running && serverRunning)
             {
