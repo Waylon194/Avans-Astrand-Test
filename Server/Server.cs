@@ -14,7 +14,7 @@ namespace Server
     {
         private IPAddress ipAdress;
         private int port;
-        private bool listening;
+        private bool serverRunning;
 
         public Server(string ipAdress, int port)
         {
@@ -29,11 +29,11 @@ namespace Server
             listener.Start();
 
             Console.WriteLine("Server has started on IP: {0} and port: {1}", ipAdress, port);
-
-            while (listening)
+            
+            while (serverRunning)
             {
                 TcpClient client = listener.AcceptTcpClient();
-                Console.WriteLine($"Accepted client at {DateTime.Now}");
+                Console.WriteLine("Server.Start: Client connected");
 
                 Thread thread = new Thread(HandleClientThread);
                 thread.Start(client);
@@ -49,7 +49,7 @@ namespace Server
             ClientConnection connection = new ClientConnection();
             MessageHandler messageHandler = new MessageHandler();
 
-            while (running)
+            while (running && serverRunning)
             {
                 string received;
 
@@ -59,19 +59,19 @@ namespace Server
                 }
                 catch (IOException)
                 {
-                    Console.WriteLine("SERVER: IOException");
+                    Console.WriteLine("Server.HandleClientThread: IOException");
                     break;
                 }
 
                 if(received != "")
                 {
-                    messageHandler.HandleMessage(received);
+                    messageHandler.HandleMessage(received, client);
                 }
             }
 
             client.Close();
             stream.Close();
-            Console.WriteLine("Connection endend with a client");
+            Console.WriteLine("Server.HandleClientThread: Client connection ended");
         }
     }
 }
