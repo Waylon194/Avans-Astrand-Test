@@ -42,6 +42,11 @@ namespace Client
             {
                 cooldown();
             }
+
+            if(_ticks > 420) // Send test data to the server
+            {
+
+            }
         }
 
         private void warmup()
