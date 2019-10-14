@@ -41,6 +41,7 @@
             // instructionsTB
             // 
             this.instructionsTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.instructionsTB.Enabled = false;
             this.instructionsTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.instructionsTB.Location = new System.Drawing.Point(0, 0);
             this.instructionsTB.Multiline = true;
@@ -78,6 +79,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "START";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // StartUp
             // 
