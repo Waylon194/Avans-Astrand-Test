@@ -66,10 +66,10 @@ namespace Client
         {
             if (!Checksum(e.Data))
             {
-
+                return;
             }
 
-            //Made by: Waylon & Jasper on 04-sep-19 0x10 Snelheid
+            //Speed
             if (e.Data[4] == 0x10)
             {
                 int totalDistance = e.Data[7];
@@ -79,24 +79,24 @@ namespace Client
                 calculatedSpeed(SpeedLSB, SpeedMSB);
             }
 
-            //Made by: Arno on 04-sep-19 0x16 Hartslag
+            //Heartrate
             if (e.Data[0] == 0x16)
             {
                 int bpm = e.Data[1];
             }
 
-            //Made by: Waylon & Jasper on 04-sep-19 0x19 Fiets Data
+            //Bike data: updates per sec, rounds per minute, power in watt
             if (e.Data[4] == 0x19)
             {
                 int amountOfUpdates = e.Data[5];
                 int rpm = e.Data[6];
                 int accumulatedPowerLSB = e.Data[7];
                 int accumulatedPowerMSB = e.Data[8];
+                calculatedPower(accumulatedPowerLSB, accumulatedPowerMSB);
             }    
         }
 
-        ///Made by: Arno & Jasper, 13-9-2019
-        //Function: check if the byte array is valid
+        //Checks if the byte array is valid
         private static bool Checksum(byte[] data)
         {
             int result = data[0];
@@ -109,8 +109,7 @@ namespace Client
             return result == data[data.Length - 1];
         }
 
-        //Made by: Matthijs on 17-sep-2019 0x30 changing basic resistance
-        async public void setResistance(int amount)
+        async public void SetResistance(int amount)
         {
             if (amount >= 1 && amount <= 200)
             {
@@ -144,36 +143,6 @@ namespace Client
             }
         }
 
-        //handles commands sent by the server
-        private void handleMessageCommand(dynamic jsonData)
-        {
-            try
-            {
-                int messageId = jsonData.messageID;
-                string destination = jsonData.destination;
-                int resistance = jsonData.resistance;
-            }
-            catch
-            {
-                Console.WriteLine("Invalid Json");
-            }
-        }
-
-        //handles text messages sent by the server
-        private void handleServerMessage(dynamic jsonData)
-        {
-            try
-            {
-                int messageId = jsonData.messageID;
-                string destination = jsonData.destination;
-                string message = jsonData.message;
-            }
-            catch
-            {
-                Console.WriteLine("Invalid JSon");
-            }
-        }
-
         public int calculateTotalDistance(int distance)
         {
             if (distance < previousTotalDistance)
@@ -190,6 +159,12 @@ namespace Client
         }
 
         public double calculatedSpeed(int LSB, int MSB)
+        {
+            int combined = (MSB << 8) | LSB;
+            return (double)combined / 1000.0;
+        }
+
+        public double calculatedPower(int LSB, int MSB)
         {
             int combined = (MSB << 8) | LSB;
             return (double)combined / 1000.0;

@@ -10,11 +10,19 @@ namespace Client
 {
     class Controller
     {
-        private static Bike client1;
+        private readonly static string[] bikesArray = {
+                "Tacx Flux 00438", // 0
+                "Tacx Flux 00457", // 1
+                "Tacx Flux 00472", // 2
+                "Tacx Flux 01140", // 3
+                "Tacx Flux 24517" // 4
+            };
+
+        private static Bike bike;
 
         public static void CreateBike()
         {
-            client1 = new Bike("Bike 1");
+            bike = new Bike(bikesArray[0]);
         }
 
         public static void rpmGuard(int rpm)
@@ -23,7 +31,6 @@ namespace Client
             if (rpm < 50)
             {
                 //faster
-                //client1.
             }
             else if (rpm > 60)
             {
@@ -31,29 +38,30 @@ namespace Client
             }
         }
 
+        //TODO: if(x >= bpm && x + 10 >= bpm) do stuff
         public static void bpmGuard(int bpm)
         {
             //Setting the resistance according to the bpm of the client
             switch (bpm)
             {
                 case 100:
-                    client1.setResistance(1);
+                    bike.SetResistance(1);
                     break;
                 case 110:
-                    client1.setResistance(2);
+                    bike.SetResistance(2);
                     break;
                 case 120:
-                    client1.setResistance(3);
+                    bike.SetResistance(3);
                     break;
                 case 125:
-                    client1.setResistance(4);
+                    bike.SetResistance(4);
                     break;
                 //No case for 130 bpm because that is the ideal bpm for this test
                 case 135:
-                    client1.setResistance(4);
+                    bike.SetResistance(4);
                     break;
                 case 140:
-                    client1.setResistance(3);
+                    bike.SetResistance(3);
                     break;
             }
         }
