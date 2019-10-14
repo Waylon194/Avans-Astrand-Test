@@ -41,11 +41,11 @@
             // instructionsTB
             // 
             this.instructionsTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.instructionsTB.Enabled = false;
             this.instructionsTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.instructionsTB.Location = new System.Drawing.Point(0, 0);
             this.instructionsTB.Multiline = true;
             this.instructionsTB.Name = "instructionsTB";
+            this.instructionsTB.ReadOnly = true;
             this.instructionsTB.Size = new System.Drawing.Size(797, 248);
             this.instructionsTB.TabIndex = 0;
             this.instructionsTB.Text = resources.GetString("instructionsTB.Text");
