@@ -21,13 +21,13 @@ namespace Server
             callbacks = new Dictionary<string, Action<JObject, TcpClient>>();
             callbacks["data"] = OnData;
             callbacks["dataRequest"] = OnDataRequest;
-            fileIO = new FileIOClass();
+            fileIO = FileIOClass.GetInstance();
         }
 
         //Save data when it comes in
         private void OnData(JObject obj, TcpClient client)
         {
-            fileIO.TryWrite(obj);
+            fileIO.Write(obj);
             Console.WriteLine("MessageHandler.OnData: logged the data");
         }
 

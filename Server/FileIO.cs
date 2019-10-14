@@ -12,66 +12,79 @@ namespace Server
 {
     class FileIOClass
     {
-        private string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\ClientData\log.txt";
+        private static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\ClientData\log.txt";
+        private static readonly object fileIOlock = new object();
+
+
         private JArray data;
 
-        public JArray Data { get => data; set => data = value; }
+        #region Singleton
+        /*  To make the file thread safe, we want to aquire locks.
+         *  But if you have multiple instances of the same class with the same lock,
+         *  it will ignore the lock
+         */
 
-        public FileIOClass()
-        {
-            InitData();
-        }
+        private static FileIOClass instance;
 
-        //Read or create a JArray
-        private bool InitData()
+        public static FileIOClass GetInstance()
         {
-            try
+            lock (fileIOlock)
             {
-                data = JArray.Parse(TryRead());
-                return true;
-            }
-            catch (JsonReaderException)
-            {
-                File.WriteAllText(path, JsonConvert.SerializeObject(new JArray()));
-                return InitData();
+                if (instance == null)
+                {
+                    instance = new FileIOClass();
+                }
+                return instance;
             }
         }
 
-        //To prevent fileIO failures, it will be tried untill they can access the file.
-        private string TryRead()
+        private FileIOClass() { InitData(); }
+        #endregion
+
+
+        public JArray Data { get => data; }
+
+        //Read data or create a JArray
+        private void InitData()
         {
-            while (true)
+            lock (fileIOlock)
             {
                 try
                 {
-                    return File.ReadAllText(path);
+                    data = JArray.Parse(Read());
                 }
-                catch (IOException)
+                catch (JsonReaderException)
                 {
-                    Console.WriteLine("FileIOClass.TryRead: IOException. Trying again in 1 second");
-                    Thread.Sleep(1000);
+                    File.WriteAllText(path, JsonConvert.SerializeObject(new JArray()));
+                    data = JArray.Parse(Read());
+                    Console.WriteLine("FileIO.InitData: Created an empty array");
                 }
             }
         }
 
-        //To prevent fileIO failures, it will be tried untill they can access the file.
-        public void TryWrite(JObject obj)
+        //Read data from the specified file
+        private string Read()
         {
-            data = JArray.Parse(TryRead());
-            data.Add(obj);
+            string data;
 
-            while (true)
+            lock (fileIOlock)
             {
-                try
-                {
-                    File.WriteAllText(path, data.ToString());
-                    break;
-                } catch (IOException)
-                {
-                    Console.WriteLine("FileIOClass.TryWrite: IOException. Trying again in 1 second");
-                    Thread.Sleep(1000);
-                }
+                data = File.ReadAllText(path);
             }
+            Console.WriteLine("FileIO.Read: Read all data from " + path);
+            return data;
+        }
+
+        //Write data to the specified file
+        public void Write(JObject obj)
+        {
+            lock (fileIOlock)
+            {
+                data = JArray.Parse(Read());
+                data.Add(obj);
+                File.WriteAllText(path, data.ToString());
+            }
+            Console.WriteLine("FileIO.Write: wrote data to " + path);
         }
     }
 }
