@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,22 @@ namespace Server
 
         public FileIOClass()
         {
-            data = JArray.Parse(TryRead());
+            InitData();
+        }
+
+        //Read or create a JArray
+        private bool InitData()
+        {
+            try
+            {
+                data = JArray.Parse(TryRead());
+                return true;
+            }
+            catch (JsonReaderException)
+            {
+                File.WriteAllText(path, JsonConvert.SerializeObject(new JArray()));
+                return InitData();
+            }
         }
 
         //To prevent fileIO failures, it will be tried untill they can access the file.
