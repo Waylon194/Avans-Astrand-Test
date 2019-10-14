@@ -6,13 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 #endregion
 
-namespace SharedUtillities
+namespace Client
 {
-    class Program
+    class Controller
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }
