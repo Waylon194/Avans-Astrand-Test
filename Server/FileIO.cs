@@ -4,75 +4,58 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Server
 {
-    class FileIO
+    class FileIOClass
     {
-        private Dictionary<string, StreamWriter> writers;
-        private List<string> fileData;
+        private string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\ClientData\log.txt";
+        private JArray data;
 
-        private readonly static string[] CLIENTDATA_FOLDER_SEGEMENTS = new Uri(Directory.GetCurrentDirectory()).Segments;
-        private readonly static string CLIENTDATA_FOLDER_NOUSAGE = string.Concat(Util.SubArray(CLIENTDATA_FOLDER_SEGEMENTS, 0, CLIENTDATA_FOLDER_SEGEMENTS.Length - 2)) + "ClientData/";
-        private readonly static string CLIENT_DATA_FOLDER = CLIENTDATA_FOLDER_NOUSAGE.Remove(0, 1);
+        public JArray Data { get => data; set => data = value; }
 
-        public List<string> FileData { get => fileData; set => fileData = value; }
-
-        public FileIO()
+        public FileIOClass()
         {
-            InitWriters();
-            ReadAllFiles();
+            data = JArray.Parse(TryRead());
         }
 
-        //Make streamwriters for all the files
-        private void InitWriters()
+        //To prevent fileIO failures, it will be tried untill they can access the file.
+        private string TryRead()
         {
-            string[] files = Directory.GetFiles(CLIENT_DATA_FOLDER);
-
-            foreach (string file in files)
+            while (true)
             {
-                writers.Add(file, new StreamWriter(file));
+                try
+                {
+                    return File.ReadAllText(path);
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("FileIOClass.TryRead: IOException. Trying again in 1 second");
+                    Thread.Sleep(1000);
+                }
             }
         }
 
-        //Read the total file and put the data in the list
-        private void ReadAllFiles()
+        //To prevent fileIO failures, it will be tried untill they can access the file.
+        public void TryWrite(JObject obj)
         {
-            fileData = new List<string>();
+            data = JArray.Parse(TryRead());
+            data.Add(obj);
 
-            string[] files = Directory.GetFiles(CLIENT_DATA_FOLDER);
-
-            foreach (string file in files)
+            while (true)
             {
-                File.ReadAllText(file);
+                try
+                {
+                    File.WriteAllText(path, data.ToString());
+                    break;
+                } catch (IOException)
+                {
+                    Console.WriteLine("FileIOClass.TryWrite: IOException. Trying again in 1 second");
+                    Thread.Sleep(1000);
+                }
             }
-        }
-        
-        //Save the data to a file
-        public void SaveData(JObject obj)
-        {
-            if (!File.Exists(CLIENT_DATA_FOLDER + obj["bikeSerialNumber"].ToObject<string>() + DateTime.Now.ToString("dd-MM-yyyy") + ".txt"))
-            {
-                string toBeAddedPath = CLIENT_DATA_FOLDER + obj["bikeSerialNumber"].ToObject<string>().ToLower().Trim() + DateTime.Now.ToString("dd-MM-yyyy") + ".txt";
-                using (File.Create(toBeAddedPath)) { }
-                writers.Add(toBeAddedPath, new StreamWriter(toBeAddedPath));
-                writers[toBeAddedPath].WriteLine(obj);
-            }
-            else
-            {
-                writers[CLIENT_DATA_FOLDER + obj["bikeSerialNumber"].ToObject<string>().ToLower().Trim() + DateTime.Now.ToString("dd-MM-yyyy") + ".txt"].WriteLine(obj);
-            }
-        }
-    }
-
-    static class Util
-    {
-        public static T[] SubArray<T>(this T[] data, int index, int length)
-        {
-            T[] result = new T[length];
-            Array.Copy(data, index, result, 0, length);
-            return result;
         }
     }
 }

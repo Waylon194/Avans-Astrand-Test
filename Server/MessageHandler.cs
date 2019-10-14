@@ -11,35 +11,40 @@ namespace Server
 {
     class MessageHandler
     {
+        private ClientConnection clientConnection;
         private Dictionary<string, Action<JObject, TcpClient>> callbacks;
+        private FileIOClass fileIO;
 
-        public MessageHandler()
+        public MessageHandler(ClientConnection clientConnection)
         {
+            this.clientConnection = clientConnection;
             callbacks = new Dictionary<string, Action<JObject, TcpClient>>();
-            callbacks["command"] = OnCommand;
             callbacks["data"] = OnData;
-            callbacks["message"] = OnMessage;
+            callbacks["dataRequest"] = OnDataRequest;
+            fileIO = new FileIOClass();
         }
 
-        private void OnCommand(JObject obj, TcpClient client)
-        {
-            throw new NotImplementedException();
-        }
-
+        //Save data when it comes in
         private void OnData(JObject obj, TcpClient client)
         {
-            throw new NotImplementedException();
+            fileIO.TryWrite(obj);
         }
 
-        private void OnMessage(JObject obj, TcpClient client)
+        //Send data when requested
+        private void OnDataRequest(JObject obj, TcpClient client)
         {
-            throw new NotImplementedException();
+            var data = new
+            {
+                type = "dataRequest",
+                data = fileIO.Data
+            };
+
+            clientConnection.Write(client, JObject.FromObject(data));
         }
         
         //Execute the given function from the callbacks
         private void Invoke(string function, JObject data, TcpClient client)
         {
-            Console.WriteLine("MessageHandler.Invoke: invoking " + function);
             callbacks[function.Trim().ToLower()].Invoke(data, client);
         }
 

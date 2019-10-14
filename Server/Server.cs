@@ -38,6 +38,8 @@ namespace Server
                 Thread thread = new Thread(HandleClientThread);
                 thread.Start(client);
             }
+
+            Console.ReadLine();
         }
 
         //Reads messages and sends them to the MessageHandler
@@ -47,7 +49,7 @@ namespace Server
             bool running = true;
             NetworkStream stream = client.GetStream();
             ClientConnection connection = new ClientConnection();
-            MessageHandler messageHandler = new MessageHandler();
+            MessageHandler messageHandler = new MessageHandler(connection);
 
             while (running && serverRunning)
             {
