@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    class Program
+    class MessageHandler
     {
-        static void Main(string[] args)
+        public void HandleMessage(string message)
         {
-            Server server = new Server("localhost", 6666);
-            server.Start();
+
         }
     }
 }
