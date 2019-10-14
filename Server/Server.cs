@@ -38,6 +38,8 @@ namespace Server
                 Thread thread = new Thread(HandleClientThread);
                 thread.Start(client);
             }
+
+            Console.ReadLine();
         }
 
         //Reads messages and sends them to the MessageHandler
