@@ -19,13 +19,49 @@ namespace Client
         private JArray data;
         private string firstName = "First name not entered!";
         private string lastName = "Last name not entered!";
+        private int age = 0;
+        public int maxBPMForAge = 210;
         public bool runningTest { get; set; }
         public string FirstName { get => firstName; }
         public string LastName { get => lastName; }
+        public int Age { get => age; set => age = value; }
         #endregion
 
         public void Start()
         {
+            if (age <= 15)
+            {
+                maxBPMForAge = 210;
+            }
+            else if (age > 15 && age <= 25)
+            {
+                maxBPMForAge = 210;
+            }
+            else if (age > 25 && age <= 35)
+            {
+                maxBPMForAge = 200;
+            }
+            else if (age > 35 && age <= 40)
+            {
+                maxBPMForAge = 190;
+            }
+            else if (age > 40 && age <= 45)
+            {
+                maxBPMForAge = 180;
+            }
+            else if (age > 45 && age <= 50)
+            {
+                maxBPMForAge = 170;
+            }
+            else if (age > 50 && age <= 55)
+            {
+                maxBPMForAge = 160;
+            }
+            else //55+
+            {
+                maxBPMForAge = 150;
+            }
+
             bike = new Bike(this);
             connection = new AsyncConnection();
             connection.Connect();
@@ -39,6 +75,7 @@ namespace Client
             {
                 this.firstName = firstName;
             }
+
             if (lastName.Trim() != "")
             {
                 this.lastName = lastName;
@@ -71,10 +108,16 @@ namespace Client
 
             if (runningTest)
             {
+                if (bpm == maxBPMForAge)
+                {
+                    bike.AdaptResistance(-200);
+                }
+
                 if (bpm < 125)
                 {
                     bike.AdaptResistance(10);
-                } else if (bpm > 135)
+                }
+                else if (bpm > 135)
                 {
                     bike.AdaptResistance(-10);
                 }
