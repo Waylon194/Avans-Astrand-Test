@@ -1,4 +1,4 @@
-﻿#region Imports
+#region Imports
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharedUtillities;
@@ -85,12 +85,12 @@ namespace Client
             this.data.Add(jdata);
         }
 
-        public void SendTrainingData(JArray data)
+        public void SendTrainingData()
         {
             JObject jObject = new JObject();
             jObject.Add("type", "data");
             jObject.Add("date", DateTime.Now.ToString());
-            jObject.Add("bikeData", data);
+            jObject.Add("bikeData", this.data);
             connection.Write(jObject);
         }
     }
