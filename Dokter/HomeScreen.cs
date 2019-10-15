@@ -1,4 +1,5 @@
 ﻿#region Imports
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,15 +18,29 @@ namespace Dokter
     {
         #region Variables
         private Controller controller;
+        private delegate void SetData();
+        private SetData setData;
+        private List<JObject> dataList;
         #endregion
 
         public HomeScreen()
         {
             InitializeComponent();
             controller = new Controller(this);
-            //Below code has been commented to make it easier to debug.
-            //controller.Connect();
-            //controller.DataRequest();
+            setData += UpdateList;
+            dataList = new List<JObject>();
+            controller.Connect();
+            controller.DataRequest();
+        }
+
+        private void UpdateList()
+        {
+            Console.WriteLine(dataList.Count);
+
+            foreach(JObject jObject in dataList)
+            {
+                listBox1.Items.Add(($"{jObject["firstName"]} {jObject["lastName"]} {jObject["date"]}"));
+            }
         }
 
         private void HomeScreen_Load(object sender, EventArgs e)
@@ -46,17 +61,18 @@ namespace Dokter
             chartData.ChartAreas["ChartArea1"].AxisY.MajorGrid.Enabled = false;
             chartData.ChartAreas["ChartArea1"].AxisY.MinorGrid.Enabled = false;
 
-            //Adding some stuff to the listbox.
-            for (int i = 0; i <= 25; i++)
-            {
-                listBox1.Items.Add("Waylon Lodder - " + DateTime.Now.AddHours(i));
-            }
         }
 
         private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Debug code to check which index has been selected.
             //MessageBox.Show("Selected item: " + listBox1.SelectedIndex);
+        }
+
+        public void AddListBoxItem(JObject obj)
+        {
+            dataList.Add(obj);
+            Invoke(setData);
         }
     }
 }
