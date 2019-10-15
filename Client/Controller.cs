@@ -18,10 +18,12 @@ namespace Client
         private JArray data;
         private string firstName = "First name not entered!";
         private string lastName = "Last name not entered!";
+        private int ticks = 0;
 
         public bool runningTest { get; set; }
         public string FirstName { get => firstName; }
         public string LastName { get => lastName; }
+        public AstrandTest AstrandTest { get; set; }
 
         public void Start()
         {
@@ -44,6 +46,7 @@ namespace Client
             }
         }
 
+        //Set messages if the rpm is "wrong"
         public void rpmGuard(int rpm)
         {
             if (runningTest)
@@ -61,37 +64,13 @@ namespace Client
             }
         }
 
-        //TODO: if(x >= bpm && x + 10 >= bpm) do stuff
+        //Set the resistance
         public void bpmGuard(int bpm)
         {
             Console.WriteLine($"____BPM {bpm}");
 
             if (runningTest)
             {
-                ////Setting the resistance according to the bpm of the client
-                //switch (bpm)
-                //{
-                //    case 100:
-                //        bike.SetResistance(1);
-                //        break;
-                //    case 110:
-                //        bike.SetResistance(2);
-                //        break;
-                //    case 120:
-                //        bike.SetResistance(3);
-                //        break;
-                //    case 125:
-                //        bike.SetResistance(4);
-                //        break;
-                //    //No case for 130 bpm because that is the ideal bpm for this test
-                //    case 135:
-                //        bike.SetResistance(4);
-                //        break;
-                //    case 140:
-                //        bike.SetResistance(3);
-                //        break;
-                //}
-
                 if (bpm < 125)
                 {
                     bike.AdaptResistance(10);
@@ -102,6 +81,7 @@ namespace Client
             }
         }
 
+        //Add the bike data to the list and put it on the screen
         public void DataUpdate()
         {
             if (runningTest)
@@ -122,6 +102,17 @@ namespace Client
                 this.data.Add(jdata);
                 //Print();
             }
+            AstrandTest.DataUpdate(bike.rpm, bike.bpm, bike.resistance, GetTextMessage(), GetRemainingTime());
+        }
+
+        private string GetTextMessage()
+        {
+            return "NOT IMPLEMENTED";
+        }
+
+        private int GetRemainingTime()
+        {
+            return 999;
         }
 
         private void Print()
@@ -130,6 +121,7 @@ namespace Client
                     $"amount of updates {bike.amountOfUpdates}, rpm {bike.rpm}, power {bike.power}, resistance {bike.resistance}");
         }
 
+        //Send the data to the server
         public void SendTrainingData()
         {
             JObject jObject = new JObject();
@@ -146,5 +138,47 @@ namespace Client
             Debug.Log(this.data.ToString());
             Debug.Log(jObject.ToString());
         }
+
+        #region Ticks
+        //What to do when ticked
+        public void Tick()
+        {
+            Console.WriteLine("Tick " + ticks);
+            ticks++;
+
+            if (ticks == 120) //2min warmup, 120 sec
+            {
+                warmup();
+            }
+
+            if (ticks == 360) //4min test, 360 sec
+            {
+                astradTest();
+            }
+
+            if (ticks == 420) //1min cooldown
+            {
+                cooldown();
+            }
+        }
+
+        private void warmup()
+        {
+            runningTest = true;
+            Console.WriteLine("WarmUp done!");
+        }
+
+        private void astradTest()
+        {
+            runningTest = false;
+            SendTrainingData();
+            Console.WriteLine("AstradTest done!");
+        }
+
+        private void cooldown()
+        {
+            Console.WriteLine("WarmUp done!");
+        }
+        #endregion
     }
 }
