@@ -1,19 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿#region Imports
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
+#endregion
 
 namespace Server
 {
     class ClientConnection
     {
+        #region Variables
         private static  Encoding encoding = Encoding.UTF8;
         private int bufferSize = 4;
+        #endregion
 
         //Read a message from the client
         public string Read(NetworkStream stream)

@@ -1,14 +1,17 @@
-﻿using Newtonsoft.Json.Linq;
+﻿#region Imports
+using Newtonsoft.Json.Linq;
 using SharedUtillities;
-using System;
+#endregion
 
 namespace Dokter
 {
     public class Controller
     {
+        #region Variables
         private HomeScreen homeScreen;
         private AsyncConnection connection;
         private JObject data;
+        #endregion
 
         public Controller(HomeScreen homeScreen)
         {
