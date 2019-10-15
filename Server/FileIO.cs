@@ -1,21 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿#region Imports
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+#endregion
 
 namespace Server
 {
     class FileIOClass
     {
+        #region Variables
         private static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\ClientData\log.txt";
         private static readonly object fileIOlock = new object();
-        
         private JArray data;
+        #endregion
 
         #region Singleton
         /*  To make the file thread safe, we want to aquire locks.
@@ -39,7 +37,6 @@ namespace Server
 
         private FileIOClass() { InitData(); }
         #endregion
-
 
         public JArray Data { get => data; }
 

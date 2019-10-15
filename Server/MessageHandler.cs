@@ -1,19 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿#region Imports
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+#endregion
 
 namespace Server
 {
     class MessageHandler
     {
+        #region Variables
         private ClientConnection clientConnection;
         private Dictionary<string, Action<JObject, TcpClient>> callbacks;
         private FileIOClass fileIO;
+        #endregion
 
         public MessageHandler(ClientConnection clientConnection)
         {

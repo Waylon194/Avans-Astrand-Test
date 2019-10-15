@@ -13,6 +13,7 @@ namespace Client
 {
     public class Controller
     {
+        #region Variables
         private Bike bike;
         private AsyncConnection connection;
         private JArray data;
@@ -24,6 +25,7 @@ namespace Client
         public string FirstName { get => firstName; }
         public string LastName { get => lastName; }
         public AstradTestClient AstradTestClient { get; set; }
+        #endregion
 
         public void Start()
         {
@@ -36,11 +38,11 @@ namespace Client
 
         public void SetName(string firstName, string lastName)
         {
-            if(firstName.Trim() != "")
+            if (firstName.Trim() != "")
             {
                 this.firstName = firstName;
             }
-            if(lastName.Trim() != "")
+            if (lastName.Trim() != "")
             {
                 this.lastName = lastName;
             }
@@ -60,6 +62,7 @@ namespace Client
                 {
                     //slower
                 }
+                //Debug
                 Console.WriteLine($"RPM: {rpm}");
             }
         }
@@ -67,6 +70,7 @@ namespace Client
         //Set the resistance
         public void bpmGuard(int bpm)
         {
+            //Debug
             Console.WriteLine($"____BPM {bpm}");
 
             if (runningTest)
