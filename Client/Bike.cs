@@ -83,6 +83,8 @@ namespace Client
 
         public void BleBike_SubscriptionValueChanged(object sender, BLESubscriptionValueChangedEventArgs e)
         {
+            Console.WriteLine("Data");
+
             if (!Checksum(e.Data) && !(e.Data[0] == 0x16))
             {
                 return;
