@@ -105,14 +105,47 @@ namespace Client
             AstrandTest.DataUpdate(bike.rpm, bike.bpm, bike.resistance, GetTextMessage(), GetRemainingTime());
         }
 
+        //Return the text hints
         private string GetTextMessage()
         {
-            return "NOT IMPLEMENTED";
+            if(bike.bpm > 135 && bike.rpm > 60)
+            {
+                return "Langzamer trappen";
+            }
+
+            if(bike.bpm > 135 && bike.rpm < 50)
+            {
+                return "Omlaag schakelen";
+            }
+
+            if(bike.bpm < 125 && bike.rpm > 60)
+            {
+                return "Omhoog schakelen";
+            }
+
+            if(bike.bpm < 125 && bike.rpm < 50)
+            {
+                return "Harder trappen";
+            }
+
+            return "Steady state :)";
         }
 
+        //Return the remaing training time
         private int GetRemainingTime()
         {
-            return 999;
+            if(ticks > 120)
+            {
+                return 120 - ticks;
+            }
+            else if (ticks > 360)
+            {
+                return 360 - ticks;
+            } else if (ticks > 420)
+            {
+                return 420 - ticks;
+            }
+            return 0;
         }
 
         private void Print()
