@@ -20,10 +20,18 @@ namespace Client
             controllerThread.Start();
         }
 
+        private void StartTimer()
+        {
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
+            timer1.Enabled = true;
+            timer1.Start();
+        }
+
         private void StartButtonClick(object sender, EventArgs e)
         {
             controller.SetName(firstNameTB.Text, lastNameTB.Text);
-            timer1.Start();  
+            StartTimer();  
             //Load test form
 
         }
@@ -31,7 +39,7 @@ namespace Client
         private void timer1_Tick(object sender, EventArgs e)
         {
             _ticks++;
-
+            Console.WriteLine("TICK " + _ticks);
             if (_ticks == 120) //2min warmup
             {
                 warmup();
@@ -50,18 +58,20 @@ namespace Client
 
         private void warmup()
         {
-            controller.runningTest = false;
+            controller.runningTest = true;
+            Console.WriteLine("WarmUp done!");
         }
 
         private void astradTest()
         {
-            controller.runningTest = true;
+            controller.runningTest = false;
             controller.SendTrainingData();
+            Console.WriteLine("AstradTest done!");
         }
 
         private void cooldown()
         {
-            controller.runningTest = false;
+            Console.WriteLine("WarmUp done!");
         }
     }
 }
