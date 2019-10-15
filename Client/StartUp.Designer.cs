@@ -153,7 +153,7 @@
             this.txtWeight.Name = "txtWeight";
             this.txtWeight.Size = new System.Drawing.Size(228, 26);
             this.txtWeight.TabIndex = 7;
-            this.txtWeight.Text = "60 kg";
+            this.txtWeight.Text = "60";
             // 
             // lblWeight
             // 

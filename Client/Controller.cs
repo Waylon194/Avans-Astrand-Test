@@ -21,7 +21,9 @@ namespace Client
         private string lastName = "Last name not entered!";
         private int ticks = 0;
 
-        private int age = 0;
+        private int age = 15;
+        private int weight = 70;
+        private string gender;
         public int maxBPMForAge = 210;
         public bool runningTest { get; set; }
         public string FirstName { get => firstName; }
@@ -73,7 +75,7 @@ namespace Client
             runningTest = false;
         }
 
-        public void SetName(string firstName, string lastName)
+        public void SetClientData(string firstName, string lastName, int age, int weight, string gender)
         {
             if (firstName.Trim() != "")
             {
@@ -84,6 +86,10 @@ namespace Client
             {
                 this.lastName = lastName;
             }
+
+            this.age = age;
+            this.weight = weight;
+            this.gender = gender;
         }
 
         //Set messages if the rpm is "wrong"
@@ -208,6 +214,9 @@ namespace Client
             jObject.Add("type", "data");
             jObject.Add("firstName", firstName);
             jObject.Add("lastName", lastName);
+            jObject.Add("age", age);
+            jObject.Add("weight", weight);
+            jObject.Add("gender", gender);
             jObject.Add("date", DateTime.Now.ToString());
             
             var jSonArray = JsonConvert.SerializeObject(this.data);
