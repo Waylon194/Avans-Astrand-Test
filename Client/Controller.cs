@@ -195,7 +195,7 @@ namespace Client
 
             if (AstradTestClient != null)
             {
-                AstradTestClient.DataUpdate(bike.rpm, bike.bpm, bike.resistance, GetTextMessage(), GetRemainingTime());
+                AstradTestClient.DataUpdate(bike.rpm, bike.bpm, bike.resistance / 2, GetTextMessage(), GetRemainingTime());
             }
         }
 
