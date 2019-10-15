@@ -131,20 +131,20 @@ namespace Client
         }
 
         //Return the remaing training time
-        private int GetRemainingTime()
+        private string GetRemainingTime()
         {
             if(ticks < 120)
             {
-                return 120 - ticks;
+                return $"Warmup {120 - ticks} s";
             }
             else if (ticks < 360)
             {
-                return 360 - ticks;
+                return $"Test {360 - ticks} s";
             } else if (ticks < 420)
             {
-                return 420 - ticks;
+                return $"Cooldown {420 - ticks} s";
             }
-            return 0;
+            return "Cooldown over";
         }
 
         private void Print()
