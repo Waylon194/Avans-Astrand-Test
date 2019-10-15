@@ -30,6 +30,7 @@ namespace Client
         public void Start()
         {
             bike = new Bike(this);
+            bike.ConnectAsync();
             connection = new AsyncConnection();
             connection.Connect();
             data = new JArray();

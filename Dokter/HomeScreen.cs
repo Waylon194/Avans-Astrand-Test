@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 #endregion
 
 namespace Dokter
@@ -35,7 +36,7 @@ namespace Dokter
 
         private void UpdateList()
         {
-            Console.WriteLine(dataList.Count);
+            listBox1.Items.Clear();
 
             foreach(JObject jObject in dataList)
             {
@@ -43,30 +44,59 @@ namespace Dokter
             }
         }
 
-        private void HomeScreen_Load(object sender, EventArgs e)
+        //Put the selected data in the chart
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.chartData.Series.Clear();
+
             //Setting max value on the Y axis.
             chartData.ChartAreas["ChartArea1"].AxisY.Maximum = 200;
             chartData.ChartAreas["ChartArea1"].AxisY.Minimum = 0;
 
             //Setting max value on the X axis.
-            chartData.ChartAreas["ChartArea1"].AxisX.Maximum = 1000;
+            chartData.ChartAreas["ChartArea1"].AxisX.Maximum = 10000;
             chartData.ChartAreas["ChartArea1"].AxisX.Minimum = 0;
 
-            //Remove lines on the X axis.
-            chartData.ChartAreas["ChartArea1"].AxisX.MajorGrid.Enabled = false;
-            chartData.ChartAreas["ChartArea1"].AxisX.MinorGrid.Enabled = false;
+            SetChartSettings(this.chartData, "BPM");
+            SetChartSettings(this.chartData, "RPM");
+            SetChartSettings(this.chartData, "Resistance");
 
-            //Remove lines on the X axis.
-            chartData.ChartAreas["ChartArea1"].AxisY.MajorGrid.Enabled = false;
-            chartData.ChartAreas["ChartArea1"].AxisY.MinorGrid.Enabled = false;
+            int itemIndex = listBox1.SelectedIndex;
 
+            JObject selected = dataList[itemIndex];
+            JArray data = selected["bikeData"].ToObject<JArray>();
+
+            chartData.ChartAreas["ChartArea1"].AxisX.Maximum = data.Count;
+
+            double maxHeight = chartData.ChartAreas["ChartArea1"].AxisX.Maximum;
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                JObject timeStamp = data[i].ToObject<JObject>();
+
+                AddPoint(this.chartData, i, "BPM", "bpm", timeStamp, ref maxHeight);
+                AddPoint(this.chartData, i, "RPM", "rpm", timeStamp, ref maxHeight);
+                AddPoint(this.chartData, i, "Resistance", "resistance", timeStamp, ref maxHeight);
+            }
         }
 
-        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void SetChartSettings(Chart chart, string value)
         {
-            //Debug code to check which index has been selected.
-            //MessageBox.Show("Selected item: " + listBox1.SelectedIndex);
+            chart.Series.Add(value);
+            chart.Series[value].ChartType = SeriesChartType.Line;
+            chart.Series[value].BorderWidth = 3;
+        }
+
+        private void AddPoint(Chart chart, int x, string value, string jsonValue, JObject timeStamp, ref double maxHeight)
+        {
+            int yCoordinate = timeStamp[jsonValue].ToObject<int>();
+
+            if (value.Equals("Resistance"))
+            {
+                yCoordinate /= 2;
+            }
+
+            this.chartData.Series[value].Points.AddXY(x, yCoordinate);
         }
 
         public void AddListBoxItem(JObject obj)
