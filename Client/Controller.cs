@@ -23,7 +23,7 @@ namespace Client
         public bool runningTest { get; set; }
         public string FirstName { get => firstName; }
         public string LastName { get => lastName; }
-        public AstrandTest AstrandTest { get; set; }
+        public AstradTestClient AstradTestClient { get; set; }
 
         public void Start()
         {
@@ -102,7 +102,6 @@ namespace Client
                 this.data.Add(jdata);
                 //Print();
             }
-            AstrandTest.DataUpdate(bike.rpm, bike.bpm, bike.resistance, GetTextMessage(), GetRemainingTime());
         }
 
         //Return the text hints
@@ -132,20 +131,20 @@ namespace Client
         }
 
         //Return the remaing training time
-        private int GetRemainingTime()
+        private string GetRemainingTime()
         {
-            if(ticks > 120)
+            if(ticks < 120)
             {
-                return 120 - ticks;
+                return $"Warmup {120 - ticks} s";
             }
-            else if (ticks > 360)
+            else if (ticks < 360)
             {
-                return 360 - ticks;
-            } else if (ticks > 420)
+                return $"Test {360 - ticks} s";
+            } else if (ticks < 420)
             {
-                return 420 - ticks;
+                return $"Cooldown {420 - ticks} s";
             }
-            return 0;
+            return "Cooldown over";
         }
 
         private void Print()
@@ -192,6 +191,11 @@ namespace Client
             if (ticks == 420) //1min cooldown
             {
                 cooldown();
+            }
+
+            if (AstradTestClient != null)
+            {
+                AstradTestClient.DataUpdate(bike.rpm, bike.bpm, bike.resistance / 2, GetTextMessage(), GetRemainingTime());
             }
         }
 

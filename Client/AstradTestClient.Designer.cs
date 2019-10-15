@@ -67,9 +67,8 @@
             this.lblMessage.Font = new System.Drawing.Font("Arial Narrow", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMessage.Location = new System.Drawing.Point(275, 244);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(521, 110);
+            this.lblMessage.Size = new System.Drawing.Size(0, 110);
             this.lblMessage.TabIndex = 4;
-            this.lblMessage.Text = "Steady State";
             // 
             // lblResistance
             // 
@@ -87,9 +86,8 @@
             this.lblRPMValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRPMValue.Location = new System.Drawing.Point(417, 74);
             this.lblRPMValue.Name = "lblRPMValue";
-            this.lblRPMValue.Size = new System.Drawing.Size(104, 73);
+            this.lblRPMValue.Size = new System.Drawing.Size(0, 73);
             this.lblRPMValue.TabIndex = 7;
-            this.lblRPMValue.Text = "55";
             // 
             // lblBPMValue
             // 
@@ -97,9 +95,8 @@
             this.lblBPMValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBPMValue.Location = new System.Drawing.Point(572, 74);
             this.lblBPMValue.Name = "lblBPMValue";
-            this.lblBPMValue.Size = new System.Drawing.Size(140, 73);
+            this.lblBPMValue.Size = new System.Drawing.Size(0, 73);
             this.lblBPMValue.TabIndex = 8;
-            this.lblBPMValue.Text = "130";
             // 
             // lblResistanceValue
             // 
@@ -107,9 +104,8 @@
             this.lblResistanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResistanceValue.Location = new System.Drawing.Point(832, 74);
             this.lblResistanceValue.Name = "lblResistanceValue";
-            this.lblResistanceValue.Size = new System.Drawing.Size(140, 73);
+            this.lblResistanceValue.Size = new System.Drawing.Size(0, 73);
             this.lblResistanceValue.TabIndex = 9;
-            this.lblResistanceValue.Text = "130";
             // 
             // lblTimer
             // 
@@ -124,12 +120,11 @@
             // lblSeconds
             // 
             this.lblSeconds.AutoSize = true;
-            this.lblSeconds.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeconds.Location = new System.Drawing.Point(90, 74);
+            this.lblSeconds.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeconds.Location = new System.Drawing.Point(12, 74);
             this.lblSeconds.Name = "lblSeconds";
-            this.lblSeconds.Size = new System.Drawing.Size(140, 73);
+            this.lblSeconds.Size = new System.Drawing.Size(0, 55);
             this.lblSeconds.TabIndex = 11;
-            this.lblSeconds.Text = "480";
             // 
             // lblMadeBy
             // 

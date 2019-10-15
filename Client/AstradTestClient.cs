@@ -14,7 +14,7 @@ namespace Client
     {
         private Controller controller;
         private Timer timer1 = new Timer();
-        private delegate void SetData(int rpm, int bpm, int resistance, string message, int remainingTime);
+        private delegate void SetData(int rpm, int bpm, double resistance, string message, string remainingTime);
         private SetData setData;
         
         public AstradTestClient(Controller controller)
@@ -37,12 +37,28 @@ namespace Client
             controller.Tick();
         }
 
-        private void SetDataFunction(int rpm, int bpm, int resistance, string message, int remainingTime)
+        //Set the label as data comes in
+        private void SetDataFunction(int rpm, int bpm, double resistance, string message, string remainingTime)
         {
+            lblRPMValue.Text = rpm.ToString();
+            lblBPMValue.Text = bpm.ToString();
+            lblResistanceValue.Text = resistance.ToString() + "%";
 
+            if(message.Equals("Steady state :)"))
+            {
+                lblMessage.ForeColor = Color.FromArgb(0, 255, 0);
+                lblMessage.Text = message.ToString();
+            } else
+            {
+                lblMessage.ForeColor = Color.FromArgb(0, 0, 0);
+                lblMessage.Text = message.ToString();
+            }
+            
+            lblSeconds.Text = remainingTime.ToString();
         }
 
-        public void DataUpdate(int rpm, int bpm, int resistance, string message, int remainingTime)
+        //Invoke the SetDataFunction
+        public void DataUpdate(int rpm, int bpm, double resistance, string message, string remainingTime)
         {
             setData.Invoke(rpm, bpm, resistance, message, remainingTime);
         }

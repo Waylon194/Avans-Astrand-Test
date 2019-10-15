@@ -20,8 +20,8 @@ namespace Client
         private void StartButtonClick(object sender, EventArgs e)
         {
             controller.SetName(firstNameTB.Text, lastNameTB.Text);
-            controller.AstrandTest = new AstrandTest(controller);
-            controller.AstrandTest.Show();
+            controller.AstradTestClient = new AstradTestClient(controller);
+            controller.AstradTestClient.Show();
             Hide();
         }
     }
