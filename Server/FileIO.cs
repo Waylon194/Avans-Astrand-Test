@@ -14,8 +14,7 @@ namespace Server
     {
         private static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\ClientData\log.txt";
         private static readonly object fileIOlock = new object();
-
-
+        
         private JArray data;
 
         #region Singleton
