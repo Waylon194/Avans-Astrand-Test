@@ -32,6 +32,13 @@
             this.instructionsTB = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.lblGender = new System.Windows.Forms.Label();
+            this.btnFemale = new System.Windows.Forms.RadioButton();
+            this.btnMale = new System.Windows.Forms.RadioButton();
+            this.txtWeight = new System.Windows.Forms.TextBox();
+            this.lblWeight = new System.Windows.Forms.Label();
+            this.txtAge = new System.Windows.Forms.TextBox();
+            this.lblAge = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lastNameTB = new System.Windows.Forms.TextBox();
@@ -86,6 +93,13 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.lblGender);
+            this.splitContainer2.Panel1.Controls.Add(this.btnFemale);
+            this.splitContainer2.Panel1.Controls.Add(this.btnMale);
+            this.splitContainer2.Panel1.Controls.Add(this.txtWeight);
+            this.splitContainer2.Panel1.Controls.Add(this.lblWeight);
+            this.splitContainer2.Panel1.Controls.Add(this.txtAge);
+            this.splitContainer2.Panel1.Controls.Add(this.lblAge);
             this.splitContainer2.Panel1.Controls.Add(this.label2);
             this.splitContainer2.Panel1.Controls.Add(this.label1);
             this.splitContainer2.Panel1.Controls.Add(this.lastNameTB);
@@ -98,37 +112,113 @@
             this.splitContainer2.SplitterDistance = 321;
             this.splitContainer2.TabIndex = 1;
             // 
+            // lblGender
+            // 
+            this.lblGender.AutoSize = true;
+            this.lblGender.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGender.Location = new System.Drawing.Point(24, 173);
+            this.lblGender.Name = "lblGender";
+            this.lblGender.Size = new System.Drawing.Size(65, 20);
+            this.lblGender.TabIndex = 10;
+            this.lblGender.Text = "Geslacht:";
+            // 
+            // btnFemale
+            // 
+            this.btnFemale.AutoSize = true;
+            this.btnFemale.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFemale.Location = new System.Drawing.Point(149, 173);
+            this.btnFemale.Name = "btnFemale";
+            this.btnFemale.Size = new System.Drawing.Size(64, 24);
+            this.btnFemale.TabIndex = 9;
+            this.btnFemale.TabStop = true;
+            this.btnFemale.Text = "Vrouw";
+            this.btnFemale.UseVisualStyleBackColor = true;
+            // 
+            // btnMale
+            // 
+            this.btnMale.AutoSize = true;
+            this.btnMale.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMale.Location = new System.Drawing.Point(91, 173);
+            this.btnMale.Name = "btnMale";
+            this.btnMale.Size = new System.Drawing.Size(52, 24);
+            this.btnMale.TabIndex = 8;
+            this.btnMale.TabStop = true;
+            this.btnMale.Text = "Man";
+            this.btnMale.UseVisualStyleBackColor = true;
+            // 
+            // txtWeight
+            // 
+            this.txtWeight.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWeight.Location = new System.Drawing.Point(91, 125);
+            this.txtWeight.Name = "txtWeight";
+            this.txtWeight.Size = new System.Drawing.Size(228, 26);
+            this.txtWeight.TabIndex = 7;
+            this.txtWeight.Text = "60 kg";
+            // 
+            // lblWeight
+            // 
+            this.lblWeight.AutoSize = true;
+            this.lblWeight.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWeight.Location = new System.Drawing.Point(25, 125);
+            this.lblWeight.Name = "lblWeight";
+            this.lblWeight.Size = new System.Drawing.Size(60, 20);
+            this.lblWeight.TabIndex = 6;
+            this.lblWeight.Text = "Gewicht:";
+            // 
+            // txtAge
+            // 
+            this.txtAge.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAge.Location = new System.Drawing.Point(91, 93);
+            this.txtAge.Name = "txtAge";
+            this.txtAge.Size = new System.Drawing.Size(228, 26);
+            this.txtAge.TabIndex = 5;
+            this.txtAge.Text = "20";
+            // 
+            // lblAge
+            // 
+            this.lblAge.AutoSize = true;
+            this.lblAge.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAge.Location = new System.Drawing.Point(29, 93);
+            this.lblAge.Name = "lblAge";
+            this.lblAge.Size = new System.Drawing.Size(56, 20);
+            this.lblAge.TabIndex = 4;
+            this.lblAge.Text = "Leeftijd:";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 118);
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(2, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 13);
+            this.label2.Size = new System.Drawing.Size(83, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "Achternaam:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 92);
+            this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(10, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.Size = new System.Drawing.Size(74, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Voornaam:";
             // 
             // lastNameTB
             // 
-            this.lastNameTB.Location = new System.Drawing.Point(80, 115);
+            this.lastNameTB.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastNameTB.Location = new System.Drawing.Point(90, 61);
             this.lastNameTB.Name = "lastNameTB";
-            this.lastNameTB.Size = new System.Drawing.Size(228, 20);
+            this.lastNameTB.Size = new System.Drawing.Size(228, 26);
             this.lastNameTB.TabIndex = 1;
             this.lastNameTB.Text = "Doe";
             // 
             // firstNameTB
             // 
-            this.firstNameTB.Location = new System.Drawing.Point(80, 89);
+            this.firstNameTB.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstNameTB.Location = new System.Drawing.Point(90, 29);
             this.firstNameTB.Name = "firstNameTB";
-            this.firstNameTB.Size = new System.Drawing.Size(228, 20);
+            this.firstNameTB.Size = new System.Drawing.Size(228, 26);
             this.firstNameTB.TabIndex = 0;
             this.firstNameTB.Text = "John";
             // 
@@ -177,6 +267,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox lastNameTB;
         private System.Windows.Forms.TextBox firstNameTB;
+        private System.Windows.Forms.TextBox txtAge;
+        private System.Windows.Forms.Label lblAge;
+        private System.Windows.Forms.Label lblGender;
+        private System.Windows.Forms.RadioButton btnFemale;
+        private System.Windows.Forms.RadioButton btnMale;
+        private System.Windows.Forms.TextBox txtWeight;
+        private System.Windows.Forms.Label lblWeight;
     }
 }
-

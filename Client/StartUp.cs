@@ -14,6 +14,7 @@ namespace Client
         {
             InitializeComponent();
             controller = new Controller();
+            controller.Age = int.Parse(txtAge.Text);
             Thread controllerThread = new Thread(controller.Start);
             controllerThread.Start();
         }
