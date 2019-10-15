@@ -36,11 +36,11 @@ namespace Dokter
 
         private void UpdateList()
         {
-            listBox1.Items.Clear();
+            dataLB.Items.Clear();
 
             foreach(JObject jObject in dataList)
             {
-                listBox1.Items.Add(($"{jObject["firstName"]} {jObject["lastName"]} {jObject["date"]}"));
+                dataLB.Items.Add(($"{jObject["firstName"]} {jObject["lastName"]} {jObject["date"]}"));
             }
         }
 
@@ -61,7 +61,7 @@ namespace Dokter
             SetChartSettings(this.chartData, "RPM");
             SetChartSettings(this.chartData, "Resistance");
 
-            int itemIndex = listBox1.SelectedIndex;
+            int itemIndex = dataLB.SelectedIndex;
 
             JObject selected = dataList[itemIndex];
             JArray data = selected["bikeData"].ToObject<JArray>();
@@ -78,6 +78,19 @@ namespace Dokter
                 AddPoint(this.chartData, i, "RPM", "rpm", timeStamp, ref maxHeight);
                 AddPoint(this.chartData, i, "Resistance", "resistance", timeStamp, ref maxHeight);
             }
+
+            UpdatePersonList(selected);
+        }
+
+        private void UpdatePersonList(JObject selected)
+        {
+            personDataLB.Items.Clear();
+            personDataLB.Items.Add($"Voornaam: {selected["firstName"]}");
+            personDataLB.Items.Add($"Achternaam: {selected["lastName"]}");
+            personDataLB.Items.Add($"Leeftijd: {selected["age"]}");
+            personDataLB.Items.Add($"Gewicht: {selected["weight"]}");
+            personDataLB.Items.Add($"Geslacht: {selected["gender"]}");
+            personDataLB.Items.Add($"Datum: {selected["date"]}");
         }
 
         private void SetChartSettings(Chart chart, string value)

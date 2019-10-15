@@ -31,12 +31,18 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.chartData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.personDataLB = new System.Windows.Forms.ListBox();
+            this.dataLB = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // chartData
@@ -66,7 +72,7 @@
             this.chartData.Location = new System.Drawing.Point(0, 0);
             this.chartData.Name = "chartData";
             this.chartData.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            this.chartData.Size = new System.Drawing.Size(530, 450);
+            this.chartData.Size = new System.Drawing.Size(1003, 681);
             this.chartData.TabIndex = 0;
             this.chartData.Text = "chart";
             // 
@@ -78,33 +84,63 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.listBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.chartData);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 266;
+            this.splitContainer1.Size = new System.Drawing.Size(1264, 681);
+            this.splitContainer1.SplitterDistance = 257;
             this.splitContainer1.TabIndex = 1;
             // 
-            // listBox1
+            // splitContainer2
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(266, 450);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.personDataLB);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.dataLB);
+            this.splitContainer2.Size = new System.Drawing.Size(257, 681);
+            this.splitContainer2.SplitterDistance = 203;
+            this.splitContainer2.TabIndex = 1;
+            // 
+            // personDataLB
+            // 
+            this.personDataLB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.personDataLB.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.personDataLB.FormattingEnabled = true;
+            this.personDataLB.ItemHeight = 20;
+            this.personDataLB.Location = new System.Drawing.Point(0, 0);
+            this.personDataLB.Name = "personDataLB";
+            this.personDataLB.Size = new System.Drawing.Size(257, 203);
+            this.personDataLB.TabIndex = 0;
+            // 
+            // dataLB
+            // 
+            this.dataLB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataLB.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataLB.FormattingEnabled = true;
+            this.dataLB.ItemHeight = 20;
+            this.dataLB.Location = new System.Drawing.Point(0, 0);
+            this.dataLB.Name = "dataLB";
+            this.dataLB.Size = new System.Drawing.Size(257, 474);
+            this.dataLB.TabIndex = 0;
+            this.dataLB.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // HomeScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.splitContainer1);
+            this.MinimumSize = new System.Drawing.Size(1280, 720);
             this.Name = "HomeScreen";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.chartData)).EndInit();
@@ -112,6 +148,10 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -119,6 +159,8 @@
 
         private System.Windows.Forms.DataVisualization.Charting.Chart chartData;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox dataLB;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.ListBox personDataLB;
     }
 }
