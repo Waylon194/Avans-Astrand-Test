@@ -132,12 +132,18 @@ namespace Client
             return result == data[data.Length - 1];
         }
 
-        async public void SetResistance(int amount)
+        //Increase the resistance by amount
+        public void AdaptResistance(int amount)
         {
-            this.resistance = amount;
+            SetResistance(this.resistance + amount);
+        }
 
-            if (amount >= 1 && amount <= 200)
+        private async void SetResistance(int amount)
+        {
+            if (amount >= 0 && amount <= 200)
             {
+                this.resistance = amount;
+
                 byte[] message = new byte[13];
 
                 //msg info

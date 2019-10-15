@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartUp));
             this.instructionsTB = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.startButton = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.firstNameTB = new System.Windows.Forms.TextBox();
-            this.lastNameTB = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lastNameTB = new System.Windows.Forms.TextBox();
+            this.firstNameTB = new System.Windows.Forms.TextBox();
+            this.startButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,18 +78,6 @@
             this.splitContainer1.SplitterDistance = 216;
             this.splitContainer1.TabIndex = 1;
             // 
-            // startButton
-            // 
-            this.startButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startButton.Location = new System.Drawing.Point(0, 0);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(299, 221);
-            this.startButton.TabIndex = 0;
-            this.startButton.Text = "START";
-            this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.Button1_Click);
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -110,19 +98,14 @@
             this.splitContainer2.SplitterDistance = 321;
             this.splitContainer2.TabIndex = 1;
             // 
-            // firstNameTB
+            // label2
             // 
-            this.firstNameTB.Location = new System.Drawing.Point(71, 89);
-            this.firstNameTB.Name = "firstNameTB";
-            this.firstNameTB.Size = new System.Drawing.Size(238, 20);
-            this.firstNameTB.TabIndex = 0;
-            // 
-            // lastNameTB
-            // 
-            this.lastNameTB.Location = new System.Drawing.Point(71, 115);
-            this.lastNameTB.Name = "lastNameTB";
-            this.lastNameTB.Size = new System.Drawing.Size(238, 20);
-            this.lastNameTB.TabIndex = 1;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(10, 118);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Achternaam";
             // 
             // label1
             // 
@@ -131,16 +114,33 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "First name";
+            this.label1.Text = "Voornaam";
             // 
-            // label2
+            // lastNameTB
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 118);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Last name";
+            this.lastNameTB.Location = new System.Drawing.Point(80, 115);
+            this.lastNameTB.Name = "lastNameTB";
+            this.lastNameTB.Size = new System.Drawing.Size(228, 20);
+            this.lastNameTB.TabIndex = 1;
+            // 
+            // firstNameTB
+            // 
+            this.firstNameTB.Location = new System.Drawing.Point(80, 89);
+            this.firstNameTB.Name = "firstNameTB";
+            this.firstNameTB.Size = new System.Drawing.Size(228, 20);
+            this.firstNameTB.TabIndex = 0;
+            // 
+            // startButton
+            // 
+            this.startButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startButton.Location = new System.Drawing.Point(0, 0);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(299, 221);
+            this.startButton.TabIndex = 0;
+            this.startButton.Text = "START";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.StartButtonClick);
             // 
             // StartUp
             // 

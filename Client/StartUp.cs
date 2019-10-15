@@ -16,12 +16,16 @@ namespace Client
         {
             InitializeComponent();
             controller = new Controller();
-            timer1.Start();
+            Thread controllerThread = new Thread(controller.Start);
+            controllerThread.Start();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void StartButtonClick(object sender, EventArgs e)
         {
+            controller.SetName(firstNameTB.Text, lastNameTB.Text);
             timer1.Start();  
+            //Load test form
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -42,26 +46,22 @@ namespace Client
             {
                 cooldown();
             }
-
-            if(_ticks > 420) // Send test data to the server
-            {
-
-            }
         }
 
         private void warmup()
         {
-
+            controller.runningTest = false;
         }
 
         private void astradTest()
         {
-
+            controller.runningTest = true;
+            controller.SendTrainingData();
         }
 
         private void cooldown()
         {
-
+            controller.runningTest = false;
         }
     }
 }
