@@ -40,12 +40,12 @@ namespace Client
         {
             _ticks++;
             Console.WriteLine("TICK " + _ticks);
-            if (_ticks == 120) //2min warmup
+            if (_ticks == 3) //2min warmup, 120 sec
             {
                 warmup();
             }
 
-            if (_ticks == 360) //4min test
+            if (_ticks == 360) //4min test, 360 sec
             {
                 astradTest();
             }

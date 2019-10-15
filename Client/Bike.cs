@@ -83,7 +83,7 @@ namespace Client
 
         public void BleBike_SubscriptionValueChanged(object sender, BLESubscriptionValueChangedEventArgs e)
         {
-            if (!Checksum(e.Data))
+            if (!Checksum(e.Data) && !(e.Data[0] == 0x16))
             {
                 return;
             }
@@ -136,9 +136,10 @@ namespace Client
         public void AdaptResistance(int amount)
         {
             SetResistance(this.resistance + amount);
+            Console.WriteLine($"RESISTANCE: {this.resistance + amount}");
         }
 
-        private async void SetResistance(int amount)
+        private void SetResistance(int amount)
         {
             if (amount >= 0 && amount <= 200)
             {
@@ -170,9 +171,8 @@ namespace Client
 
                 message[12] = checksum;
 
-                await bleBike.WriteCharacteristic("6e40fec3-b5a3-f393-e0a9-e50e24dcca9e", message);
+                bleBike.WriteCharacteristic("6e40fec3-b5a3-f393-e0a9-e50e24dcca9e", message);
             }
-            controller.DataUpdate();
         }
 
         private int TotalDistance(int distance)

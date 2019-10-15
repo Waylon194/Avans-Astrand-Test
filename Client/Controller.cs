@@ -51,18 +51,21 @@ namespace Client
                 //Sending messages to make the client cycle faster or slower
                 if (rpm < 50)
                 {
-                    //faster
+                    //Faster
                 }
                 else if (rpm > 60)
                 {
                     //slower
                 }
+                Console.WriteLine($"RPM: {rpm}");
             }
         }
 
         //TODO: if(x >= bpm && x + 10 >= bpm) do stuff
         public void bpmGuard(int bpm)
         {
+            Console.WriteLine($"____BPM {bpm}");
+
             if (runningTest)
             {
                 ////Setting the resistance according to the bpm of the client
@@ -89,7 +92,7 @@ namespace Client
                 //        break;
                 //}
 
-                if(bpm < 125)
+                if (bpm < 125)
                 {
                     bike.AdaptResistance(10);
                 } else if (bpm > 135)
@@ -117,8 +120,8 @@ namespace Client
                 
                 JObject jdata = JObject.FromObject(data);
                 this.data.Add(jdata);
+                //Print();
             }
-            Print();
         }
 
         private void Print()
@@ -134,8 +137,14 @@ namespace Client
             jObject.Add("firstName", firstName);
             jObject.Add("lastName", lastName);
             jObject.Add("date", DateTime.Now.ToString());
-            jObject.Add("bikeData", this.data);
+            
+            var jSonArray = JsonConvert.SerializeObject(this.data);
+            var jArray = JArray.Parse(jSonArray);
+            jObject.Add("bikeData", jArray);
+
             connection.Write(jObject);
+            Debug.Log(this.data.ToString());
+            Debug.Log(jObject.ToString());
         }
     }
 }
