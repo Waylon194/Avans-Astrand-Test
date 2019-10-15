@@ -23,7 +23,29 @@ namespace Client
             this.controller = controller;
             setData = new SetData(SetDataFunction);
             StartTimer();
+            InitGraph();
         }
+
+        private void InitGraph()
+        {
+            dataChart.ChartAreas["dataChart"].AxisY.Maximum = 200;
+            dataChart.ChartAreas["dataChart"].AxisY.Minimum = 0;
+
+            dataChart.ChartAreas["dataChart"].AxisX.Maximum = 410;
+            dataChart.ChartAreas["dataChart"].AxisX.Minimum = 0;
+
+            CreateLine("RPM");
+            CreateLine("BPM");
+            CreateLine("Resistance");
+        }
+
+        private void CreateLine(string value)
+        {
+            dataChart.Series.Add(value);
+            dataChart.Series[value].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            dataChart.Series[value].BorderWidth = 3;
+        }
+
         private void StartTimer()
         {
             timer1.Interval = 1000;
@@ -55,6 +77,15 @@ namespace Client
             }
             
             lblSeconds.Text = remainingTime.ToString();
+
+            UpdateGraph(rpm, bpm, resistance);
+        }
+
+        private void UpdateGraph(int rpm, int bpm, double resistance)
+        {
+            this.dataChart.Series["RPM"].Points.AddXY(this.dataChart.Series["RPM"].Points.Count, rpm);
+            this.dataChart.Series["BPM"].Points.AddXY(this.dataChart.Series["BPM"].Points.Count, bpm);
+            this.dataChart.Series["Resistance"].Points.AddXY(this.dataChart.Series["Resistance"].Points.Count, resistance);
         }
 
         //Invoke the SetDataFunction
@@ -64,3 +95,4 @@ namespace Client
         }
     }
 }
+ 

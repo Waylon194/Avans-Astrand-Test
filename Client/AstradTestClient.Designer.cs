@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.lblRPM = new System.Windows.Forms.Label();
             this.lblBPM = new System.Windows.Forms.Label();
             this.lblMessage = new System.Windows.Forms.Label();
@@ -39,6 +41,8 @@
             this.lblSeconds = new System.Windows.Forms.Label();
             this.lblMadeBy = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.dataChart)).BeginInit();
             this.SuspendLayout();
             // 
             // lblRPM
@@ -65,7 +69,7 @@
             // 
             this.lblMessage.AutoSize = true;
             this.lblMessage.Font = new System.Drawing.Font("Arial Narrow", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessage.Location = new System.Drawing.Point(275, 244);
+            this.lblMessage.Location = new System.Drawing.Point(212, 147);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(0, 110);
             this.lblMessage.TabIndex = 4;
@@ -146,11 +150,23 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "Version: 1.3";
             // 
+            // dataChart
+            // 
+            chartArea1.Name = "dataChart";
+            this.dataChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.dataChart.Legends.Add(legend1);
+            this.dataChart.Location = new System.Drawing.Point(13, 282);
+            this.dataChart.Name = "dataChart";
+            this.dataChart.Size = new System.Drawing.Size(1039, 330);
+            this.dataChart.TabIndex = 14;
+            // 
             // AstradTestClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 682);
+            this.Controls.Add(this.dataChart);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblMadeBy);
             this.Controls.Add(this.lblSeconds);
@@ -165,6 +181,7 @@
             this.MinimumSize = new System.Drawing.Size(1080, 720);
             this.Name = "AstradTestClient";
             this.Text = "AstradTestClient";
+            ((System.ComponentModel.ISupportInitialize)(this.dataChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,5 +200,6 @@
         private System.Windows.Forms.Label lblSeconds;
         private System.Windows.Forms.Label lblMadeBy;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart dataChart;
     }
 }
