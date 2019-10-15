@@ -1,4 +1,7 @@
 ﻿#region Imports
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SharedUtillities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +11,21 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    class Controller
+    public class Controller
     {
-        private readonly static string[] bikesArray = {
-                "Tacx Flux 00438", // 0
-                "Tacx Flux 00457", // 1
-                "Tacx Flux 00472", // 2
-                "Tacx Flux 01140", // 3
-                "Tacx Flux 24517" // 4
-            };
+        private Bike bike;
+        private AsyncConnection connection;
+        private JArray data;
 
-        private static Bike bike;
-
-        public static void CreateBike()
+        public Controller()
         {
-            bike = new Bike(bikesArray[0]);
+            bike = new Bike(this);
+            connection = new AsyncConnection();
+            connection.Connect();
+            data = new JArray();
         }
 
-        public static void rpmGuard(int rpm)
+        public void rpmGuard(int rpm)
         {
             //Sending messages to make the client cycle faster or slower
             if (rpm < 50)
@@ -39,7 +39,7 @@ namespace Client
         }
 
         //TODO: if(x >= bpm && x + 10 >= bpm) do stuff
-        public static void bpmGuard(int bpm)
+        public void bpmGuard(int bpm)
         {
             //Setting the resistance according to the bpm of the client
             switch (bpm)
@@ -64,6 +64,34 @@ namespace Client
                     bike.SetResistance(3);
                     break;
             }
+        }
+
+        public void DataUpdate()
+        {
+            var data = new
+            {
+                bikeName = bike.bikeName,
+                totalDistance = bike.totalDistance,
+                speed = bike.speed,
+                bpm = bike.bpm,
+                amountOfUpdates = bike.amountOfUpdates,
+                rpm = bike.rpm,
+                power = bike.power,
+                resistance = bike.resistance
+            };
+            Console.WriteLine($"Bikename {bike.bikeName}, total distance {bike.totalDistance}, speed {bike.speed}, bpm {bike.bpm}," +
+                $"amount of updates {bike.amountOfUpdates}, rpm {bike.rpm}, power {bike.power}, resistance {bike.resistance}");
+            JObject jdata = JObject.FromObject(data);
+            this.data.Add(jdata);
+        }
+
+        public void SendTrainingData(JArray data)
+        {
+            JObject jObject = new JObject();
+            jObject.Add("type", "data");
+            jObject.Add("date", DateTime.Now.ToString());
+            jObject.Add("bikeData", data);
+            connection.Write(jObject);
         }
     }
 }

@@ -10,16 +10,35 @@ namespace Client
     public class Bike
     {
         #region Variables
-        string bikeName;
         private BLE bleBike;
         private BLE bleHeart;
-        int previousTotalDistance = 0;
-        int totalDistance = 0;
+        private Controller controller;
+        private int previousTotalDistance = 0;
+
+        public string bikeName = "";
+        public int totalDistance = 0;
+        public double speed = 0;
+        public int bpm = 0;
+        public int amountOfUpdates = 0;
+        public int rpm = 0;
+        public double power = 0;
+        public int resistance = 0;
+
+        private readonly static string[] bikesArray = {
+                "Tacx Flux 00438", // 0
+                "Tacx Flux 00457", // 1
+                "Tacx Flux 00472", // 2
+                "Tacx Flux 01140", // 3
+                "Tacx Flux 01249", // 4
+                "Tacx Flux 24517"  // 5
+            };
         #endregion
 
-        public Bike(string bikeName)
+        public Bike(Controller controller)
         {
-            this.bikeName = bikeName;
+            this.bikeName = bikesArray[4];
+            this.controller = controller;
+            ConnectAsync();
         }
 
         public async Task ConnectAsync()
@@ -75,29 +94,33 @@ namespace Client
                 int totalDistance = e.Data[7];
                 int SpeedLSB = e.Data[8];
                 int SpeedMSB = e.Data[9];
-                calculateTotalDistance(totalDistance);
-                calculatedSpeed(SpeedLSB, SpeedMSB);
+                this.totalDistance = TotalDistance(totalDistance);
+                this.speed = ConverBits(SpeedLSB, SpeedMSB);
             }
 
             //Heartrate
             if (e.Data[0] == 0x16)
             {
-                int bpm = e.Data[1];
+                this.bpm = e.Data[1];
+                controller.bpmGuard(bpm);
             }
 
             //Bike data: updates per sec, rounds per minute, power in watt
             if (e.Data[4] == 0x19)
             {
-                int amountOfUpdates = e.Data[5];
-                int rpm = e.Data[6];
+                this.amountOfUpdates = e.Data[5];
+                this.rpm = e.Data[6];
                 int accumulatedPowerLSB = e.Data[7];
                 int accumulatedPowerMSB = e.Data[8];
-                calculatedPower(accumulatedPowerLSB, accumulatedPowerMSB);
-            }    
+                this.power = ConverBits(accumulatedPowerLSB, accumulatedPowerMSB);
+                controller.rpmGuard(rpm);
+            }
+
+            controller.DataUpdate();
         }
 
         //Checks if the byte array is valid
-        private static bool Checksum(byte[] data)
+        private bool Checksum(byte[] data)
         {
             int result = data[0];
 
@@ -111,6 +134,8 @@ namespace Client
 
         async public void SetResistance(int amount)
         {
+            this.resistance = amount;
+
             if (amount >= 1 && amount <= 200)
             {
                 byte[] message = new byte[13];
@@ -141,9 +166,10 @@ namespace Client
 
                 await bleBike.WriteCharacteristic("6e40fec3-b5a3-f393-e0a9-e50e24dcca9e", message);
             }
+            controller.DataUpdate();
         }
 
-        public int calculateTotalDistance(int distance)
+        private int TotalDistance(int distance)
         {
             if (distance < previousTotalDistance)
             {
@@ -158,13 +184,7 @@ namespace Client
             return totalDistance;
         }
 
-        public double calculatedSpeed(int LSB, int MSB)
-        {
-            int combined = (MSB << 8) | LSB;
-            return (double)combined / 1000.0;
-        }
-
-        public double calculatedPower(int LSB, int MSB)
+        public double ConverBits(int LSB, int MSB)
         {
             int combined = (MSB << 8) | LSB;
             return (double)combined / 1000.0;

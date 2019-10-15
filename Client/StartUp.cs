@@ -10,12 +10,12 @@ namespace Client
     {
         System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
         private int _ticks;
+        Controller controller;
 
         public StartUp()
         {
             InitializeComponent();
-            Thread controllerThread = new Thread(Controller.CreateBike);
-            controllerThread.Start();
+            controller = new Controller();
             timer1.Start();
         }
 
