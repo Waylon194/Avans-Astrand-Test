@@ -13,15 +13,16 @@ namespace Client
 {
     public class Controller
     {
+        #region Variables
         private Bike bike;
         private AsyncConnection connection;
         private JArray data;
         private string firstName = "First name not entered!";
         private string lastName = "Last name not entered!";
-
         public bool runningTest { get; set; }
         public string FirstName { get => firstName; }
         public string LastName { get => lastName; }
+        #endregion
 
         public void Start()
         {
@@ -34,11 +35,11 @@ namespace Client
 
         public void SetName(string firstName, string lastName)
         {
-            if(firstName.Trim() != "")
+            if (firstName.Trim() != "")
             {
                 this.firstName = firstName;
             }
-            if(lastName.Trim() != "")
+            if (lastName.Trim() != "")
             {
                 this.lastName = lastName;
             }
@@ -57,6 +58,7 @@ namespace Client
                 {
                     //slower
                 }
+                //Debug
                 Console.WriteLine($"RPM: {rpm}");
             }
         }
@@ -64,34 +66,11 @@ namespace Client
         //TODO: if(x >= bpm && x + 10 >= bpm) do stuff
         public void bpmGuard(int bpm)
         {
+            //Debug
             Console.WriteLine($"____BPM {bpm}");
 
             if (runningTest)
             {
-                ////Setting the resistance according to the bpm of the client
-                //switch (bpm)
-                //{
-                //    case 100:
-                //        bike.SetResistance(1);
-                //        break;
-                //    case 110:
-                //        bike.SetResistance(2);
-                //        break;
-                //    case 120:
-                //        bike.SetResistance(3);
-                //        break;
-                //    case 125:
-                //        bike.SetResistance(4);
-                //        break;
-                //    //No case for 130 bpm because that is the ideal bpm for this test
-                //    case 135:
-                //        bike.SetResistance(4);
-                //        break;
-                //    case 140:
-                //        bike.SetResistance(3);
-                //        break;
-                //}
-
                 if (bpm < 125)
                 {
                     bike.AdaptResistance(10);

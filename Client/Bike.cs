@@ -1,8 +1,10 @@
-﻿using Avans.TI.BLE;
+﻿#region Imports
+using Avans.TI.BLE;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+#endregion
 
 namespace Client
 {
@@ -144,9 +146,7 @@ namespace Client
             if (amount >= 0 && amount <= 200)
             {
                 this.resistance = amount;
-
                 byte[] message = new byte[13];
-
                 //msg info
                 message[0] = 0xA4;                     //Sync byte
                 message[1] = 0x09;                     //Length of message is 8 bytes content + 1 channel byte
@@ -161,16 +161,15 @@ namespace Client
                 }
 
                 message[11] = Convert.ToByte(amount);  //Value of the resistance, 1 == 0.5%
-
                 //Checksum
                 byte checksum = 0;
+
                 for (int i = 1; i < 12; i++)
                 {
                     checksum ^= message[i];
                 }
 
                 message[12] = checksum;
-
                 bleBike.WriteCharacteristic("6e40fec3-b5a3-f393-e0a9-e50e24dcca9e", message);
             }
         }
