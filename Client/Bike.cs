@@ -40,7 +40,6 @@ namespace Client
         {
             this.bikeName = bikesArray[4];
             this.controller = controller;
-            ConnectAsync();
         }
 
         public async Task ConnectAsync()
