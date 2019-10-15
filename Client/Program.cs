@@ -16,6 +16,9 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new StartUp());
+
+            //Debug for the form
+            //Application.Run(new AstradTestClient());
         }
     }
 }

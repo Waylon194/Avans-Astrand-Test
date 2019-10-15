@@ -74,7 +74,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(624, 441);
+            this.splitContainer1.Size = new System.Drawing.Size(624, 442);
             this.splitContainer1.SplitterDistance = 216;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -94,7 +94,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.startButton);
-            this.splitContainer2.Size = new System.Drawing.Size(624, 221);
+            this.splitContainer2.Size = new System.Drawing.Size(624, 222);
             this.splitContainer2.SplitterDistance = 321;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -103,18 +103,18 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(10, 118);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Achternaam";
+            this.label2.Text = "Achternaam:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(10, 92);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Voornaam";
+            this.label1.Text = "Voornaam:";
             // 
             // lastNameTB
             // 
@@ -122,6 +122,7 @@
             this.lastNameTB.Name = "lastNameTB";
             this.lastNameTB.Size = new System.Drawing.Size(228, 20);
             this.lastNameTB.TabIndex = 1;
+            this.lastNameTB.Text = "Doe";
             // 
             // firstNameTB
             // 
@@ -129,6 +130,7 @@
             this.firstNameTB.Name = "firstNameTB";
             this.firstNameTB.Size = new System.Drawing.Size(228, 20);
             this.firstNameTB.TabIndex = 0;
+            this.firstNameTB.Text = "John";
             // 
             // startButton
             // 
@@ -136,7 +138,7 @@
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startButton.Location = new System.Drawing.Point(0, 0);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(299, 221);
+            this.startButton.Size = new System.Drawing.Size(299, 222);
             this.startButton.TabIndex = 0;
             this.startButton.Text = "START";
             this.startButton.UseVisualStyleBackColor = true;
@@ -146,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 441);
+            this.ClientSize = new System.Drawing.Size(624, 442);
             this.Controls.Add(this.splitContainer1);
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "StartUp";
