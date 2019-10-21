@@ -20,6 +20,7 @@ namespace Client
         private string firstName = "First name not entered!";
         private string lastName = "Last name not entered!";
         private int ticks = 0;
+        private bool steadyState = false;
 
         private int age = 15;
         private int weight = 70;
@@ -149,13 +150,27 @@ namespace Client
                     amountOfUpdates = bike.amountOfUpdates,
                     rpm = bike.rpm,
                     power = bike.power,
-                    resistance = bike.resistance
+                    resistance = bike.resistance,
+                    ticks = ticks
                 };
                 
                 JObject jdata = JObject.FromObject(data);
                 this.data.Add(jdata);
                 //Print();
+                steadyState = CheckSteadyState();
             }
+        }
+
+        private bool CheckSteadyState()
+        {
+            if(bike.bpm >= 125 && bike.bpm <= 135)
+            {
+                if(bike.rpm >= 50 && bike.rpm <= 60)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         //Return the text hints
@@ -218,6 +233,7 @@ namespace Client
             jObject.Add("weight", weight);
             jObject.Add("gender", gender);
             jObject.Add("date", DateTime.Now.ToString());
+            jObject.Add("SteadyState", steadyState);
             
             var jSonArray = JsonConvert.SerializeObject(this.data);
             var jArray = JArray.Parse(jSonArray);
