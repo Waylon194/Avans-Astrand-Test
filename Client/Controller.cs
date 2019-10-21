@@ -21,6 +21,10 @@ namespace Client
         private string lastName = "Last name not entered!";
         private int ticks = 0;
         private bool steadyState = false;
+        private double vo2max = 0;
+        public int maxBPMTest = 0;
+        public int restingBPM = 0;
+
 
         private int age = 15;
         private int weight = 70;
@@ -158,9 +162,16 @@ namespace Client
                 this.data.Add(jdata);
                 //Print();
                 steadyState = CheckSteadyState();
+
+                if (bike.bpm > maxBPMTest)
+                {
+                    maxBPMTest = bike.bpm;
+                }
+
+                vo2max = CalculateVO2max();
             }
         }
-
+        
         private bool CheckSteadyState()
         {
             if(bike.bpm >= 125 && bike.bpm <= 135)
@@ -171,6 +182,11 @@ namespace Client
                 }
             }
             return false;
+        }
+
+        private double CalculateVO2max()
+        {
+            return maxBPMTest / restingBPM * 15.3 / (weight * (ticks / 60));
         }
 
         //Return the text hints
@@ -204,14 +220,14 @@ namespace Client
         {
             if(ticks < 120)
             {
-                return $"Warmup {120 - ticks} s";
+                return $"Warmup: {120 - ticks} sec";
             }
             else if (ticks < 360)
             {
-                return $"Test {360 - ticks} s";
+                return $"Test: {360 - ticks} sec";
             } else if (ticks < 420)
             {
-                return $"Cooldown {420 - ticks} s";
+                return $"Cooldown: {420 - ticks} sec";
             }
             return "Cooldown over";
         }
@@ -233,7 +249,8 @@ namespace Client
             jObject.Add("weight", weight);
             jObject.Add("gender", gender);
             jObject.Add("date", DateTime.Now.ToString());
-            jObject.Add("SteadyState", steadyState);
+            jObject.Add("steadyState", steadyState);
+            jObject.Add("vo2max", vo2max);
             
             var jSonArray = JsonConvert.SerializeObject(this.data);
             var jArray = JArray.Parse(jSonArray);
@@ -254,6 +271,7 @@ namespace Client
             if (ticks == 120) //2min warmup, 120 sec
             {
                 warmup();
+                restingBPM = bike.bpm;
             }
 
             if (ticks == 360) //4min test, 360 sec
