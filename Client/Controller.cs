@@ -25,12 +25,15 @@ namespace Client
         private double vo2max = 0;
         private int maxBPMTest = 0;
         private int restingBPM = 0;
+        private int lastResistanceTick;
 
         private int age = 15;
         private int weight = 70;
         private string gender;
         private int maxBPMForAge = 210;
         private double factor;
+
+        private const int resStep = 3;
 
         public bool runningTest { get; set; }
         public string FirstName { get => firstName; }
@@ -238,9 +241,10 @@ namespace Client
             if(bike.bpm > 135 && bike.rpm >= 50 && bike.rpm <= 60)
             {
                 //Weerstand omlaag of terug schakelen
-                if(bike.resistance > 0)
+                if(bike.resistance > 0 && !(lastResistanceTick == ticks))
                 {
-                    bike.AdaptResistance(-5);
+                    lastResistanceTick = ticks;
+                    bike.AdaptResistance(-resStep);
                     return "Weerstand gaat omlaag";
                 }
                 else
@@ -253,9 +257,10 @@ namespace Client
             if (bike.bpm < 125 && bike.rpm >= 50 && bike.rpm <= 60)
             {
                 //Weerstand omhoog of op schakelen
-                if (!(bike.resistance + 5 > 200))
+                if (!(bike.resistance + resStep > 200) && !(lastResistanceTick == ticks))
                 {
-                    bike.AdaptResistance(5);
+                    lastResistanceTick = ticks;
+                    bike.AdaptResistance(resStep);
                     return "Weerstand gaat omhoog";
                 }
                 else
@@ -269,9 +274,10 @@ namespace Client
             if (bike.bpm >= 125 && bike.bpm <= 135 && bike.rpm > 60)
             {
                 //Weerstand omhoog of terug schakelen
-                if (!(bike.resistance + 5 > 200))
+                if (!(bike.resistance + resStep > 200) && !(lastResistanceTick == ticks))
                 {
-                    bike.AdaptResistance(5);
+                    lastResistanceTick = ticks;
+                    bike.AdaptResistance(resStep);
                     return "Weerstand gaat omhoog";
                 }
                 else
@@ -284,9 +290,10 @@ namespace Client
             if (bike.bpm >= 125 && bike.bpm <= 135 && bike.rpm < 50)
             {
                 //Weerstand omlaag of terug schakelen
-                if (bike.resistance > 0)
+                if (bike.resistance > 0 && !(lastResistanceTick == ticks))
                 {
-                    bike.AdaptResistance(-10);
+                    lastResistanceTick = ticks;
+                    bike.AdaptResistance(-resStep);
                     return "Weerstand gaat omlaag";
                 }
                 else

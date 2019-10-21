@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E2AB81BA-90BC-4E24-87DC-E5646693D5C8}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Dokter</RootNamespace>
     <AssemblyName>Dokter</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
