@@ -108,6 +108,11 @@ namespace Dokter
             {
                 personDataLB.Items.Add($"VO2 max: {selected["vo2max"]}");
             }
+
+            if (selected.ContainsKey("avgBPM"))
+            {
+                personDataLB.Items.Add($"Gemiddelde hartslag: {selected["avgBPM"]}");
+            }
         }
 
         private void SetChartSettings(Chart chart, string value)

@@ -22,6 +22,8 @@ namespace Client
         private string lastName = "Last name not entered!";
         private int ticks = 0;
         private bool steadyState = false;
+        private int steadyStateTick;
+
         private double vo2max = 0;
         private int maxBPMTest = 0;
         private int restingBPM = 0;
@@ -195,10 +197,14 @@ namespace Client
 
         private bool CheckSteadyState()
         {
-            if(bike.bpm >= 125 && bike.bpm <= 135)
+            if (bike.bpm >= 125 && bike.bpm <= 135)
             {
-                if(bike.rpm >= 50 && bike.rpm <= 60)
+                if (bike.rpm >= 50 && bike.rpm <= 60)
                 {
+                    if (steadyState == false)
+                    {
+                        steadyStateTick = ticks;
+                    }
                     return true;
                 }
             }
@@ -207,7 +213,7 @@ namespace Client
 
         private double CalculateVO2max()
         {
-            return maxBPMTest / restingBPM * 15.3 / (weight * (ticks / 60));
+            return maxBPMTest / restingBPM * 15.3 / (weight * (ticks / 60))  * 100;
         }
 
         //Return the text hints
@@ -341,6 +347,11 @@ namespace Client
             jObject.Add("date", DateTime.Now.ToString());
             jObject.Add("steadyState", steadyState);
             jObject.Add("vo2max", (vo2max * factor));
+
+            if(steadyStateTick >= 239) // 2 minuten warmup + 2 minuten training
+            {
+                jObject.Add("avgBPM", GetBpmAverage());
+            }
             
             var jSonArray = JsonConvert.SerializeObject(this.data);
             var jArray = JArray.Parse(jSonArray);
@@ -349,6 +360,23 @@ namespace Client
             connection.Write(jObject);
             Debug.Log(this.data.ToString());
             Debug.Log(jObject.ToString());
+        }
+
+        //Calculate the avarage BPM from the last two test minutes
+        public int GetBpmAverage()
+        {
+            int dataAmount = 0;
+            int total = 0;
+
+            foreach (JObject jObject in this.data)
+            {
+                if(jObject["ticks"].ToObject<int>() > 239)
+                {
+                    dataAmount++;
+                    total += jObject["bpm"].ToObject<int>();
+                }
+            }
+            return total / dataAmount;
         }
 
         #region Ticks
