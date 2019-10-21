@@ -72,7 +72,7 @@
             this.chartData.Location = new System.Drawing.Point(0, 0);
             this.chartData.Name = "chartData";
             this.chartData.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            this.chartData.Size = new System.Drawing.Size(1003, 681);
+            this.chartData.Size = new System.Drawing.Size(896, 681);
             this.chartData.TabIndex = 0;
             this.chartData.Text = "chart";
             // 
@@ -90,7 +90,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.chartData);
             this.splitContainer1.Size = new System.Drawing.Size(1264, 681);
-            this.splitContainer1.SplitterDistance = 257;
+            this.splitContainer1.SplitterDistance = 364;
             this.splitContainer1.TabIndex = 1;
             // 
             // splitContainer2
@@ -107,7 +107,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dataLB);
-            this.splitContainer2.Size = new System.Drawing.Size(257, 681);
+            this.splitContainer2.Size = new System.Drawing.Size(364, 681);
             this.splitContainer2.SplitterDistance = 203;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -119,7 +119,7 @@
             this.personDataLB.ItemHeight = 20;
             this.personDataLB.Location = new System.Drawing.Point(0, 0);
             this.personDataLB.Name = "personDataLB";
-            this.personDataLB.Size = new System.Drawing.Size(257, 203);
+            this.personDataLB.Size = new System.Drawing.Size(364, 203);
             this.personDataLB.TabIndex = 0;
             // 
             // dataLB
@@ -130,7 +130,7 @@
             this.dataLB.ItemHeight = 20;
             this.dataLB.Location = new System.Drawing.Point(0, 0);
             this.dataLB.Name = "dataLB";
-            this.dataLB.Size = new System.Drawing.Size(257, 474);
+            this.dataLB.Size = new System.Drawing.Size(364, 474);
             this.dataLB.TabIndex = 0;
             this.dataLB.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 

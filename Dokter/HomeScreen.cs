@@ -63,6 +63,11 @@ namespace Dokter
 
             int itemIndex = dataLB.SelectedIndex;
 
+            if(itemIndex >= dataLB.Items.Count || itemIndex < 0)
+            {
+                itemIndex = 0;
+            }
+
             JObject selected = dataList[itemIndex];
             JArray data = selected["bikeData"].ToObject<JArray>();
 
@@ -97,16 +102,21 @@ namespace Dokter
                 if (selected["steadyState"].ToObject<bool>())
                 {
                     personDataLB.Items.Add($"Steady state: behaald");
+
+                    if (selected.ContainsKey("vo2max"))
+                    {
+                        personDataLB.Items.Add($"VO2 max: {selected["vo2max"]}");
+                    }
                 }
                 else
                 {
                     personDataLB.Items.Add($"Steady state: niet behaald");
-                }
-            }
 
-            if (selected.ContainsKey("vo2max"))
-            {
-                personDataLB.Items.Add($"VO2 max: {selected["vo2max"]}");
+                    if (selected.ContainsKey("vo2max"))
+                    {
+                        personDataLB.Items.Add($"VO2 max: {selected["vo2max"]} is niet betrouwbaar!");
+                    }
+                }
             }
 
             if (selected.ContainsKey("avgBPM"))
