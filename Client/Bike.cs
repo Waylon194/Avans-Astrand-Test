@@ -38,7 +38,7 @@ namespace Client
 
         public Bike(Controller controller)
         {
-            this.bikeName = bikesArray[4];
+            this.bikeName = bikesArray[5];
             this.controller = controller;
         }
 
@@ -84,22 +84,25 @@ namespace Client
 
         public void BleBike_SubscriptionValueChanged(object sender, BLESubscriptionValueChangedEventArgs e)
         {
-            Console.WriteLine("Data");
-
             if (!Checksum(e.Data) && !(e.Data[0] == 0x16))
             {
                 return;
             }
 
-            //Speed
-            if (e.Data[4] == 0x10)
+            try
             {
-                int totalDistance = e.Data[7];
-                int SpeedLSB = e.Data[8];
-                int SpeedMSB = e.Data[9];
-                this.totalDistance = TotalDistance(totalDistance);
-                this.speed = ConverBits(SpeedLSB, SpeedMSB);
+                //Speed
+                if (e.Data[4] == 0x10)
+                {
+                    int totalDistance = e.Data[7];
+                    int SpeedLSB = e.Data[8];
+                    int SpeedMSB = e.Data[9];
+                    this.totalDistance = TotalDistance(totalDistance);
+                    this.speed = ConverBits(SpeedLSB, SpeedMSB);
+                }
             }
+            catch (IndexOutOfRangeException) { }
+            
 
             //Heartrate
             if (e.Data[0] == 0x16)
@@ -108,17 +111,21 @@ namespace Client
                 controller.bpmGuard(bpm);
             }
 
-            //Bike data: updates per sec, rounds per minute, power in watt
-            if (e.Data[4] == 0x19)
+            try
             {
-                this.amountOfUpdates = e.Data[5];
-                this.rpm = e.Data[6];
-                int accumulatedPowerLSB = e.Data[7];
-                int accumulatedPowerMSB = e.Data[8];
-                this.power = ConverBits(accumulatedPowerLSB, accumulatedPowerMSB);
-                controller.rpmGuard(rpm);
+                //Bike data: updates per sec, rounds per minute, power in watt
+                if (e.Data[4] == 0x19)
+                {
+                    this.amountOfUpdates = e.Data[5];
+                    this.rpm = e.Data[6];
+                    int accumulatedPowerLSB = e.Data[7];
+                    int accumulatedPowerMSB = e.Data[8];
+                    this.power = ConverBits(accumulatedPowerLSB, accumulatedPowerMSB);
+                    controller.rpmGuard(rpm);
+                }
             }
-
+            catch (IndexOutOfRangeException) { }
+            
             controller.DataUpdate();
         }
 

@@ -91,6 +91,23 @@ namespace Dokter
             personDataLB.Items.Add($"Gewicht: {selected["weight"]}");
             personDataLB.Items.Add($"Geslacht: {selected["gender"]}");
             personDataLB.Items.Add($"Datum: {selected["date"]}");
+
+            if (selected.ContainsKey("steadyState"))
+            {
+                if (selected["steadyState"].ToObject<bool>())
+                {
+                    personDataLB.Items.Add($"Steady state: behaald");
+                }
+                else
+                {
+                    personDataLB.Items.Add($"Steady state: niet behaald");
+                }
+            }
+
+            if (selected.ContainsKey("vo2max"))
+            {
+                personDataLB.Items.Add($"VO2 max: {selected["vo2max"]}");
+            }
         }
 
         private void SetChartSettings(Chart chart, string value)

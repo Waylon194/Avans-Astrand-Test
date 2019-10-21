@@ -17,19 +17,21 @@ namespace Client
         private Bike bike;
         private AsyncConnection connection;
         private JArray data;
+
         private string firstName = "First name not entered!";
         private string lastName = "Last name not entered!";
         private int ticks = 0;
         private bool steadyState = false;
         private double vo2max = 0;
-        public int maxBPMTest = 0;
-        public int restingBPM = 0;
-
+        private int maxBPMTest = 0;
+        private int restingBPM = 0;
 
         private int age = 15;
         private int weight = 70;
         private string gender;
-        public int maxBPMForAge = 210;
+        private int maxBPMForAge = 210;
+        private double factor;
+
         public bool runningTest { get; set; }
         public string FirstName { get => firstName; }
         public string LastName { get => lastName; }
@@ -42,34 +44,47 @@ namespace Client
             if (age <= 15)
             {
                 maxBPMForAge = 210;
+                factor = 1.1;
             }
             else if (age > 15 && age <= 25)
             {
                 maxBPMForAge = 210;
+                factor = 1;
             }
             else if (age > 25 && age <= 35)
             {
                 maxBPMForAge = 200;
+                factor = 0.87;
             }
             else if (age > 35 && age <= 40)
             {
                 maxBPMForAge = 190;
+                factor = 0.83;
             }
             else if (age > 40 && age <= 45)
             {
                 maxBPMForAge = 180;
+                factor = 0.78;
             }
             else if (age > 45 && age <= 50)
             {
                 maxBPMForAge = 170;
+                factor = 0.75;
             }
             else if (age > 50 && age <= 55)
             {
                 maxBPMForAge = 160;
+                factor = 0.71;
             }
-            else //55+
+            else if (age > 55 && age <= 60)
             {
                 maxBPMForAge = 150;
+                factor = 0.68;
+            }
+            else //60+
+            {
+                maxBPMForAge = 150;
+                factor = 0.65;
             }
 
             bike = new Bike(this);
@@ -100,6 +115,8 @@ namespace Client
         //Set messages if the rpm is "wrong"
         public void rpmGuard(int rpm)
         {
+            Console.WriteLine($"RPM: {rpm}");
+
             if (runningTest)
             {
                 //Sending messages to make the client cycle faster or slower
@@ -112,7 +129,6 @@ namespace Client
                     //slower
                 }
                 //Debug
-                Console.WriteLine($"RPM: {rpm}");
             }
         }
 
@@ -160,7 +176,7 @@ namespace Client
                 
                 JObject jdata = JObject.FromObject(data);
                 this.data.Add(jdata);
-                //Print();
+                
                 steadyState = CheckSteadyState();
 
                 if (bike.bpm > maxBPMTest)
@@ -170,8 +186,9 @@ namespace Client
 
                 vo2max = CalculateVO2max();
             }
+            //Print();
         }
-        
+
         private bool CheckSteadyState()
         {
             if(bike.bpm >= 125 && bike.bpm <= 135)
@@ -250,7 +267,7 @@ namespace Client
             jObject.Add("gender", gender);
             jObject.Add("date", DateTime.Now.ToString());
             jObject.Add("steadyState", steadyState);
-            jObject.Add("vo2max", vo2max);
+            jObject.Add("vo2max", (vo2max * factor));
             
             var jSonArray = JsonConvert.SerializeObject(this.data);
             var jArray = JArray.Parse(jSonArray);
