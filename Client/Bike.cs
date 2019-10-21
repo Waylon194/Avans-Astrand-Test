@@ -149,8 +149,17 @@ namespace Client
             Console.WriteLine($"RESISTANCE: {this.resistance + amount}");
         }
 
-        private void SetResistance(int amount)
+        public void SetResistance(int amount)
         {
+            if(amount < 0)
+            {
+                amount = 0;
+            }
+            else if (amount > 200)
+            {
+                amount = 200;
+            }
+
             if (amount >= 0 && amount <= 200)
             {
                 this.resistance = amount;

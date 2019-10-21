@@ -142,17 +142,18 @@ namespace Client
             {
                 if (bpm == maxBPMForAge)
                 {
-                    bike.AdaptResistance(-200);
+                    bike.SetResistance(0);
+
                 }
 
-                if (bpm < 125)
-                {
-                    bike.AdaptResistance(10);
-                }
-                else if (bpm > 135)
-                {
-                    bike.AdaptResistance(-10);
-                }
+                //if (bpm < 125)
+                //{
+                //    bike.AdaptResistance(5);
+                //}
+                //else if (bpm > 135)
+                //{
+                //    bike.AdaptResistance(-5);
+                //}
             }
         }
 
@@ -209,27 +210,92 @@ namespace Client
         //Return the text hints
         private string GetTextMessage()
         {
-            if(bike.bpm > 135 && bike.rpm > 60)
-            {
-                return "Langzamer trappen";
-            }
-
+            //Teveel bpm en te hoge versnelling (weinig toeren)
             if(bike.bpm > 135 && bike.rpm < 50)
             {
                 return "Omlaag schakelen";
             }
 
-            if(bike.bpm < 125 && bike.rpm > 60)
+            //Te lage hartslag en te lage versnelling (veel toeren)
+            if (bike.bpm < 125 && bike.rpm > 60)
             {
                 return "Omhoog schakelen";
             }
 
-            if(bike.bpm < 125 && bike.rpm < 50)
+            //Te hoge hartslag en te hoge versnelling (veel toeren)
+            if (bike.bpm > 135 && bike.rpm > 60)
+            {
+                return "Langzamer trappen";
+            }
+
+            //Te lage hartslag en te lage versnalling (weinig toeren)
+            if (bike.bpm < 125 && bike.rpm < 50)
             {
                 return "Harder trappen";
             }
 
-            return "Steady state :)";
+            //Te hoge hartslag
+            if(bike.bpm > 135 && bike.rpm >= 50 && bike.rpm <= 60)
+            {
+                //Weerstand omlaag of terug schakelen
+                if(bike.resistance > 0)
+                {
+                    bike.AdaptResistance(-5);
+                    return "Weerstand gaat omlaag";
+                }
+                else
+                {
+                    return "Omlaag schakelen";
+                }
+            }
+
+            //Te lage hartslag
+            if (bike.bpm < 125 && bike.rpm >= 50 && bike.rpm <= 60)
+            {
+                //Weerstand omhoog of op schakelen
+                if (!(bike.resistance + 5 > 200))
+                {
+                    bike.AdaptResistance(5);
+                    return "Weerstand gaat omhoog";
+                }
+                else
+                {
+                    bike.SetResistance(bike.resistance / 3);
+                    return "Omhoog schakelen";
+                }
+            }
+
+            //Teveel toeren
+            if (bike.bpm >= 125 && bike.bpm <= 135 && bike.rpm > 60)
+            {
+                //Weerstand omhoog of terug schakelen
+                if (!(bike.resistance + 5 > 200))
+                {
+                    bike.AdaptResistance(5);
+                    return "Weerstand gaat omhoog";
+                }
+                else
+                {
+                    return "Omlaag schakelen";
+                }
+            }
+
+            //Te weinig toeren
+            if (bike.bpm >= 125 && bike.bpm <= 135 && bike.rpm < 50)
+            {
+                //Weerstand omlaag of terug schakelen
+                if (bike.resistance > 0)
+                {
+                    bike.AdaptResistance(-10);
+                    return "Weerstand gaat omlaag";
+                }
+                else
+                {
+                    return "Omhoog schakelen";
+                }
+            }
+
+            return "Hou dit tempo aan";
         }
 
         //Return the remaing training time
@@ -246,7 +312,7 @@ namespace Client
             {
                 return $"Cooldown: {420 - ticks} sec";
             }
-            return "Cooldown over";
+            return "Test klaar";
         }
 
         private void Print()

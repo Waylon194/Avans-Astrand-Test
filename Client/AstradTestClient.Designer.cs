@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.lblRPM = new System.Windows.Forms.Label();
             this.lblBPM = new System.Windows.Forms.Label();
             this.lblMessage = new System.Windows.Forms.Label();
@@ -80,9 +80,9 @@
             this.lblResistance.Font = new System.Drawing.Font("Arial Narrow", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResistance.Location = new System.Drawing.Point(744, -1);
             this.lblResistance.Name = "lblResistance";
-            this.lblResistance.Size = new System.Drawing.Size(308, 75);
+            this.lblResistance.Size = new System.Drawing.Size(299, 75);
             this.lblResistance.TabIndex = 5;
-            this.lblResistance.Text = "Resistance";
+            this.lblResistance.Text = "Weerstand";
             // 
             // lblRPMValue
             // 
@@ -117,9 +117,9 @@
             this.lblTimer.Font = new System.Drawing.Font("Arial Narrow", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimer.Location = new System.Drawing.Point(0, -1);
             this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(360, 75);
+            this.lblTimer.Size = new System.Drawing.Size(168, 75);
             this.lblTimer.TabIndex = 10;
-            this.lblTimer.Text = "Seconds left:";
+            this.lblTimer.Text = "Fase:";
             // 
             // lblSeconds
             // 
@@ -152,10 +152,10 @@
             // 
             // dataChart
             // 
-            chartArea1.Name = "dataChart";
-            this.dataChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.dataChart.Legends.Add(legend1);
+            chartArea2.Name = "dataChart";
+            this.dataChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.dataChart.Legends.Add(legend2);
             this.dataChart.Location = new System.Drawing.Point(13, 282);
             this.dataChart.Name = "dataChart";
             this.dataChart.Size = new System.Drawing.Size(1039, 330);
