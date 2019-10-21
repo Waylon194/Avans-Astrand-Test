@@ -31,10 +31,9 @@ namespace Dokter
         private void OnMessage(object sender, string message)
         {
             data = JObject.Parse(message);
-
             JArray jArray = JArray.Parse(data["data"].ToString());
 
-            foreach(JObject jObject in jArray)
+            foreach (JObject jObject in jArray)
             {
                 homeScreen.AddListBoxItem(jObject);
             }

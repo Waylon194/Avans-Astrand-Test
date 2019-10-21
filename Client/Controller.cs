@@ -182,7 +182,6 @@ namespace Client
                 
                 JObject jdata = JObject.FromObject(data);
                 this.data.Add(jdata);
-                
                 steadyState = CheckSteadyState();
 
                 if (bike.bpm > maxBPMTest)
@@ -220,7 +219,7 @@ namespace Client
         private string GetTextMessage()
         {
             //Teveel bpm en te hoge versnelling (weinig toeren)
-            if(bike.bpm > 135 && bike.rpm < 50)
+            if (bike.bpm > 135 && bike.rpm < 50)
             {
                 return "Omlaag schakelen";
             }
@@ -244,10 +243,10 @@ namespace Client
             }
 
             //Te hoge hartslag
-            if(bike.bpm > 135 && bike.rpm >= 50 && bike.rpm <= 60)
+            if (bike.bpm > 135 && bike.rpm >= 50 && bike.rpm <= 60)
             {
                 //Weerstand omlaag of terug schakelen
-                if(bike.resistance > 0 && !(lastResistanceTick == ticks))
+                if (bike.resistance > 0 && !(lastResistanceTick == ticks))
                 {
                     lastResistanceTick = ticks;
                     bike.AdaptResistance(-resStep);
@@ -307,21 +306,21 @@ namespace Client
                     return "Omhoog schakelen";
                 }
             }
-
             return "Hou dit tempo aan";
         }
 
         //Return the remaing training time
         private string GetRemainingTime()
         {
-            if(ticks < 120)
+            if (ticks < 120)
             {
                 return $"Warmup: {120 - ticks} sec";
             }
             else if (ticks < 360)
             {
                 return $"Test: {360 - ticks} sec";
-            } else if (ticks < 420)
+            }
+            else if (ticks < 420)
             {
                 return $"Cooldown: {420 - ticks} sec";
             }
@@ -348,7 +347,7 @@ namespace Client
             jObject.Add("steadyState", steadyState);
             jObject.Add("vo2max", (vo2max * factor));
 
-            if(steadyStateTick >= 239) // 2 minuten warmup + 2 minuten training
+            if (steadyStateTick >= 239) // 2 minuten warmup + 2 minuten training
             {
                 jObject.Add("avgBPM", GetBpmAverage());
             }
@@ -370,7 +369,7 @@ namespace Client
 
             foreach (JObject jObject in this.data)
             {
-                if(jObject["ticks"].ToObject<int>() > 239)
+                if (jObject["ticks"].ToObject<int>() > 239)
                 {
                     dataAmount++;
                     total += jObject["bpm"].ToObject<int>();
@@ -378,7 +377,6 @@ namespace Client
             }
             return total / dataAmount;
         }
-
         #region Ticks
         //What to do when ticked
         public void Tick()

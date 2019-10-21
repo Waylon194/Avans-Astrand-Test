@@ -63,7 +63,7 @@ namespace Server
                     break;
                 }
 
-                if(received != "")
+                if (received != "")
                 {
                     messageHandler.HandleMessage(received, client);
                 }

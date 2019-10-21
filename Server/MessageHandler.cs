@@ -42,7 +42,6 @@ namespace Server
             };
 
             clientConnection.Write(client, JObject.FromObject(data));
-
             Console.WriteLine("MessageHandler.OnDataRequest: sent data to the client");
         }
         
